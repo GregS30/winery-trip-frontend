@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
-const WinerySearch = () => {
+const WinerySearch = (props) => {
   return (
-
     <div className="winery-search">
-      <label htmlFor="winery-input">Wineries: </label>
-      <input type="text" name="winery-input"/>
+      <label htmlFor="winerySearchInput">Wineries: </label>
+      <input
+        type="text"
+        name="winerySearchInput"
+        value={props.winerySearchInput}
+        onChange={(event) => props.handleSearchInputChange(event)}
+        />
     </div>
   )
 }

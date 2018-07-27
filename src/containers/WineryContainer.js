@@ -9,6 +9,7 @@ class WineryContainer extends Component {
     this.state = {
       wineries: [],
       regions: [],
+      winerySearchInput: "",
     }
   }
 
@@ -22,7 +23,7 @@ class WineryContainer extends Component {
     .then(res => res.json())
     .then(wineries => this.setState({
       wineries,
-    }, () => console.log(this.state)))
+    }))
   }
 
   fetchRegions = () => {
@@ -36,8 +37,14 @@ class WineryContainer extends Component {
   renderRegions = () => {
     return this.state.regions.map(region => {
       return (
-        <option>{region.name}</option>
+        <option key={region.id}>{region.name}</option>
       )
+    })
+  }
+
+  handleSearchInputChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -45,10 +52,14 @@ class WineryContainer extends Component {
     return (
       <div className="winery-container">
         <div className="filter">
-          <FilterContainer renderRegions={this.renderRegions}/>
+          <FilterContainer
+            renderRegions={this.renderRegions}
+            winerySearchInput={this.state.winerySearchInput}
+            handleSearchInputChange={this.handleSearchInputChange}
+          />
         </div>
         <div className="list-and-details">
-          <WineryList />
+          <WineryList wineries={this.state.wineries}/>
           <WineryDetailsContainer />
         </div>
       </div>
