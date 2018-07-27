@@ -1,5 +1,4 @@
 body {
-  background-color:	#98dad3;
 }
 
 .header {
@@ -7,8 +6,9 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid black;
-  background-color: #ffa366;
+  font-family: 'Life Savers', cursive;
+  font-size: 20px;
+  background-color: white;
 }
 
 .header-logo img {
@@ -30,8 +30,9 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  border: 1px solid black;
-  background-color: #305d7b;
+  font-family: 'Poiret One', cursive;
+  background-color: white;
+  padding: 10px;
 }
 
 .filter {
@@ -92,7 +93,6 @@ input {
   flex-direction: column;
   justify-content: center;
   margin: 5px;
-  border: 1px solid black;
 }
 
 .winery-list {
@@ -113,13 +113,13 @@ input {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
   font-size: 8px;
   position:absolute;
   bottom:0;
   width:100%;
   height:40px;
-  background-color: #305d7b;
+  font-family: 'Poiret One', cursive;
+  background-color: white;
 }
 
 .footer-logo img {
