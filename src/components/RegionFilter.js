@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const RegionFilter = (props) => {
+
   return (
     <div className="region-filter">
       <label htmlFor="region-filter">Region: </label>

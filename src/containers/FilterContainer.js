@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+//COMPONENTS
 import WinerySearch from '../components/WinerySearch.js';
 import GrapeFilter from '../components/GrapeFilter.js';
 import RegionFilter from '../components/RegionFilter.js';

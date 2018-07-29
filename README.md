@@ -1,6 +1,8 @@
 APP
   - Header
+
   - NavBar
+  
   - WineryContainer
 
     - FilterContainer

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class WineryList extends Component {
+  
   renderWineries = () => {
     return this.props.wineries.map(winery => {
       return (
@@ -8,6 +9,7 @@ class WineryList extends Component {
       )
     })
   }
+
   render() {
     console.log(this.props)
     return (
