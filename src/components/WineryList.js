@@ -5,13 +5,15 @@ class WineryList extends Component {
   renderWineries = () => {
     return this.props.wineries.map(winery => {
       return (
-        <li key={winery.id}>{winery.name}</li>
+        <li 
+          key={winery.id}
+          onClick={(e) => this.props.handleClick(e,winery)}
+        >{winery.name}</li>
       )
     })
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="winery-list">
         {this.renderWineries()}
