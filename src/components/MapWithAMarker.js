@@ -12,12 +12,12 @@ const MapWithAMarker = compose(
   withGoogleMap
 )(props =>
   <GoogleMap
-    defaultTitle="YOUR WINERY"
     defaultZoom={15}
-    defaultCenter={{ lat: props.displayedWinery.geometry.location.lat, lng: props.displayedWinery.geometry.location.lng }}
+    defaultCenter={{ lat: props.lat, lng: props.lng }}
+    defaultOptions={{labels: true, mapTypeId: "hybrid"}}
   >
     <Marker
-      position={{ lat: props.displayedWinery.geometry.location.lat, lng: props.displayedWinery.geometry.location.lng }}
+      position={{ lat: props.lat, lng: props.lng }}
     />
   </GoogleMap>
 );

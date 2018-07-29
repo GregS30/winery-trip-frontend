@@ -136,6 +136,18 @@ input {
   margin-right: 20px;
 }
 
+.winery-img{
+  margin: 0px 2px
+}
+.carrousel{
+  width: 600px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
