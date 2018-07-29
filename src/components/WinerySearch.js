@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const WinerySearch = (props) => {
+  
   return (
     <div className="winery-search">
       <label htmlFor="winerySearchInput">Wineries: </label>
@@ -12,6 +13,7 @@ const WinerySearch = (props) => {
         />
     </div>
   )
+  
 }
 
 export default WinerySearch;

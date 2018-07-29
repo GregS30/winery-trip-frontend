@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Trip = () => {
-
-}
+    return (
+        <div>
+            
+        </div>
+    );
+};
 
 export default Trip;

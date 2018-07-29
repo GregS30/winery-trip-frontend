@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+//COMPONENTS
 import WineryList from '../components/WineryList.js';
 import WineryDetailsContainer from './WineryDetailsContainer';
 import FilterContainer from './FilterContainer';
