@@ -16,7 +16,6 @@ class WineryDetailsContainer extends Component {
   )
 
   render() {
-    console.log(this.props)
     return this.props.displayedWinery ?
       <div className="winery-details-container">
         <h1>{this.props.displayedWinery["name"]}</h1>

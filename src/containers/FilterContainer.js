@@ -14,7 +14,10 @@ class FilterContainer extends Component {
           renderGrapes={this.props.renderGrapes}
           handleGrapeSelect={this.props.handleGrapeSelect}
         />
-        <RegionFilter renderRegions={this.props.renderRegions}/>
+        <RegionFilter 
+          renderRegions={this.props.renderRegions}
+          handleRegionSelect={this.props.handleRegionSelect}
+        />
       </div>
     )
   }

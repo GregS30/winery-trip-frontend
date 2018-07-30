@@ -5,7 +5,7 @@ const RegionFilter = (props) => {
   return (
     <div className="region-filter">
       <label htmlFor="region-filter">Region: </label>
-      <select name="region-filter">
+      <select name="region-filter" onChange={props.handleRegionSelect}>
         {props.renderRegions()}
       </select>
     </div>

@@ -49,7 +49,7 @@ class WineryContainer extends Component {
       grapes,
     }))
   }
-  
+
   //AC.Note: This is interesting. I'd move this function to FilterContainer and pass state regions to it instead.
   renderRegions = () => {
     if (this.state.regions) {
@@ -85,7 +85,13 @@ class WineryContainer extends Component {
   handleGrapeSelect = (event) => {
     this.setState({
       selectedGrape: event.target.value,
-    })
+    }, () => this.fetchWineries())
+  }
+
+  handleRegionSelect = (event) => {
+    this.setState({
+      selectedRegion: event.target.value,
+    }, () => this.fetchWineries())
   }
 
   //PROPS FUNCTIONALITY: WineryList handlers
@@ -99,7 +105,7 @@ class WineryContainer extends Component {
   filterWineries = () => {
     if (this.state.wineries) {
       const filteredWineries = this.state.wineries.filter(winery => {
-        return winery.name.toLowerCase().includes(this.state.winerySearchInput)
+        return winery.name.toLowerCase().includes(this.state.winerySearchInput.toLowerCase())
       })
       return filteredWineries
     }
@@ -110,6 +116,7 @@ class WineryContainer extends Component {
 
 
   render() {
+    console.log(this.state)
     return (
       <div className="winery-container">
         <div className="filter">
@@ -119,6 +126,7 @@ class WineryContainer extends Component {
             winerySearchInput={this.state.winerySearchInput}
             handleSearchInputChange={this.handleSearchInputChange}
             handleGrapeSelect={this.handleGrapeSelect}
+            handleRegionSelect={this.handleRegionSelect}
           />
         </div>
         <div className="list-and-details">
