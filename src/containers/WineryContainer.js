@@ -100,7 +100,12 @@ class WineryContainer extends Component {
   handleClick = (e, selectedWinery) => {
     AdapterAPI.getWineryData(selectedWinery.name)
     .then(json => {
-      json["message"] ? null : this.setState(
+      json["message"]
+        ? this.setState(
+          {displayedWinery: null,
+          winery: selectedWinery,
+        })
+        : this.setState(
         {displayedWinery: json,
           winery: selectedWinery,
         });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import MapWithAMarker from '../components/MapWithAMarker'
 
 class WineryDetailsContainer extends Component {
@@ -15,26 +15,43 @@ class WineryDetailsContainer extends Component {
   }
   )
 
-  render() {
-    return this.props.displayedWinery ?
-      <div className="winery-details-container">
+  renderHeader = () => (
+    this.props.winery
+    ? <Fragment>
         <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to Trip</button>
-        <h1>{this.props.displayedWinery["name"]}</h1>
-        <p>{this.props.displayedWinery["formatted_address"]}</p>
-        <div className="carrousel">
-         {this.props.displayedWinery.photos ? this.getPhotos() : null}
-        </div>
-        <MapWithAMarker
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1-4iAJOvlDv3Iw92XW4Xj7ldZOxa9MuY&v=3.exp&libraries=geometry,drawing,places"
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `200px`}} />}
-          mapElement={<div style={{ height: `100%`, width:`600px` }} />}
-          lat={this.props.displayedWinery.geometry.location.lat}
-          lng={this.props.displayedWinery.geometry.location.lng}
-        />
+        <h1>{this.props.winery["name"]}</h1>
+      </Fragment>
+    : null
+  )
+
+  renderDetails = () =>
+    (
+      <Fragment>
+      <p>{this.props.displayedWinery["formatted_address"]}</p>
+      <div className="carrousel">
+       {this.props.displayedWinery.photos ? this.getPhotos() : null}
       </div>
-    :
-    null
+      <MapWithAMarker
+        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1-4iAJOvlDv3Iw92XW4Xj7ldZOxa9MuY&v=3.exp&libraries=geometry,drawing,places"
+        loadingElement={<div style={{ height: `100%` }} />}
+        containerElement={<div style={{ height: `200px`}} />}
+        mapElement={<div style={{ height: `100%`, width:`600px` }} />}
+        lat={this.props.displayedWinery.geometry.location.lat}
+        lng={this.props.displayedWinery.geometry.location.lng}
+      />
+      </Fragment>
+    )
+
+  render() {
+    return (
+      <div className="winery-details-container">
+        {this.renderHeader()}
+        {this.props.displayedWinery
+          ? this.renderDetails()
+          : <div>no data</div>
+        }
+      </div>
+    )
   }
 }
 
