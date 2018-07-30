@@ -72,7 +72,9 @@ class WineryContainer extends Component {
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
     AdapterAPI.getWineryData(selectedWinery.name)
-    .then(json => this.setState({displayedWinery: json}))
+    .then(json => {
+      json["message"] ? null : this.setState({displayedWinery: json})
+    })
   }  
 
   render() {

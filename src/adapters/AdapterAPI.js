@@ -4,7 +4,7 @@ const API = 'http://localhost:3000/api/v1';
 class AdapterAPI {
      
     static getWineryData(searchTerms) {
-      return fetch(`${API}/winery?search=${searchTerms}`)
+      return fetch(`${API}/winery?search=${searchTerms}%20winery`)
            .then(r => r.json())
     }
 
