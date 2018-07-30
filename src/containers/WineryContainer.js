@@ -11,8 +11,11 @@ class WineryContainer extends Component {
     super(props)
     this.state = {
       wineries: null,
+      filteredWineries: [],
+
       regions: null,
       winerySearchInput: "",
+      
       displayedWinery: null,
     }
   }
@@ -25,8 +28,10 @@ class WineryContainer extends Component {
   //Data
   fetchWineries = () => {
     AdapterAPI.getWineries()
+    .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(wineries => this.setState({
       wineries,
+      filteredWineries: wineries,
     }))
   }
 
@@ -53,6 +58,15 @@ class WineryContainer extends Component {
   handleSearchInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
+    }, () => this.filteredWineries())
+  }
+
+  filteredWineries = () => {
+    const filteredWineries = this.state.wineries.filter(winery => {
+      return winery.name.toLowerCase().includes(this.state.winerySearchInput)
+    })
+    this.setState({
+      filteredWineries,
     })
   }
   //PROPS FUNCTIONALITY: WineryList handlers
@@ -62,7 +76,6 @@ class WineryContainer extends Component {
   }  
 
   render() {
-    console.log(this.state.wineries)
     return (
       <div className="winery-container">
         <div className="filter">
@@ -74,12 +87,13 @@ class WineryContainer extends Component {
         </div>
         <div className="list-and-details">
           <WineryList
-            wineries={this.state.wineries}
+            wineries={this.state.filteredWineries}
             handleClick={this.handleClick}
           />
           <WineryDetailsContainer 
             displayedWinery={this.state.displayedWinery}
           />
+
         </div>
       </div>
     )

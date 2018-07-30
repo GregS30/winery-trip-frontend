@@ -12,7 +12,7 @@ import Footer from './components/Footer.js';
 
 
 class App extends Component {
-  
+
   render() {
     return (
       <div className="App">
@@ -23,7 +23,6 @@ class App extends Component {
              <Route path="/home" component={WineryContainer} />
            </React.Fragment>
          </Router>
-        <Footer />
       </div>
     );
   }
