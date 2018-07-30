@@ -12,6 +12,48 @@ import Footer from './components/Footer.js';
 
 
 class App extends Component {
+  constructor () {
+    super()
+    this.state = {
+      username: "",
+      password: "",
+      loggedIn: false,
+      trip: [],
+      winery: null,
+    }
+  }
+
+  handleSubmit = (event, loginState) => {
+    event.preventDefault();
+    this.setState({
+      username: loginState.username,
+      password: loginState.password,
+      loggedIn: true,
+      }, () => console.log(this.state)
+    );
+  }
+
+  handleLogout = (event) => {
+    this.setState({
+      username: "",
+      password: "",
+      loggedIn: false,
+      }
+    );
+  }
+
+  saveWinery = (winery) => {
+    console.log("winery=", winery)
+    let newTrip = [...this.state.trip, winery]
+//    newTrip.push(winery)
+
+    this.setState({
+      winery: winery,
+      trip: newTrip,
+    }, () => console.log(this.state));
+
+  }
+
 
   render() {
     return (
@@ -19,8 +61,16 @@ class App extends Component {
         <Header />
         <Router>
            <React.Fragment>
-             <Navbar />
-             <Route path="/home" component={WineryContainer} />
+             <Navbar
+               handleLogout={this.handleLogout}
+               loggedIn={this.state.loggedIn}
+               handleSubmit={this.handleSubmit} />
+             <Route
+               path="/home"
+               render={() =>
+                 <WineryContainer saveWinery={this.saveWinery}
+                />}
+              />
            </React.Fragment>
          </Router>
       </div>

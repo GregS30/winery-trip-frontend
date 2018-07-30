@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import MapWithAMarker from '../components/MapWithAMarker'
 
 class WineryDetailsContainer extends Component {
-  
+
   getPhotos = () => this.props.displayedWinery.photos.map( photo => {
-    return( 
-      <img 
+    return(
+      <img
         key={photo.photo_reference}
         className="winery-img"
         src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=150&photoreference=${photo.photo_reference}&key=AIzaSyAbNf1uErgPzc7WK1tfAMshs23v1pTOQRs`}
@@ -18,6 +18,7 @@ class WineryDetailsContainer extends Component {
   render() {
     return this.props.displayedWinery ?
       <div className="winery-details-container">
+        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to Trip</button>
         <h1>{this.props.displayedWinery["name"]}</h1>
         <p>{this.props.displayedWinery["formatted_address"]}</p>
         <div className="carrousel">

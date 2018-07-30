@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 class WineryList extends Component {
-  
+
   renderWineries = () => {
     if (this.props.wineries) {
     return this.props.wineries.map(winery => {
       return (
-        <li 
+        <li
           key={winery.id}
-          onClick={(e) => this.props.handleClick(e,winery)}
+          onClick={(e) => this.props.handleClick(e, winery)}
         >{winery.name}</li>
 
       )

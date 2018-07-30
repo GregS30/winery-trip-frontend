@@ -12,12 +12,14 @@ class WineryContainer extends Component {
     this.state = {
       wineries: null,
       regions: null,
-      
+
       displayedWinery: null,
 
       winerySearchInput: "",
       selectedRegion: "Napa Valley",
       selectedGrape: "Merlot",
+
+      winery: null,
     }
   }
 
@@ -98,9 +100,12 @@ class WineryContainer extends Component {
   handleClick = (e, selectedWinery) => {
     AdapterAPI.getWineryData(selectedWinery.name)
     .then(json => {
-      json["message"] ? null : this.setState({displayedWinery: json})
+      json["message"] ? null : this.setState(
+        {displayedWinery: json,
+          winery: selectedWinery,
+        });
     })
-  }  
+  }
 
   filterWineries = () => {
     if (this.state.wineries) {
@@ -113,7 +118,6 @@ class WineryContainer extends Component {
       return null
     }
   }
-
 
   render() {
     console.log(this.state)
@@ -135,7 +139,9 @@ class WineryContainer extends Component {
             handleClick={this.handleClick}
           />
           <WineryDetailsContainer
+            saveWinery={this.props.saveWinery}
             displayedWinery={this.state.displayedWinery}
+            winery={this.state.winery}
           />
 
         </div>
