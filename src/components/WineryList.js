@@ -4,12 +4,11 @@ class WineryList extends Component {
   renderWineries = () => {
     return this.props.wineries.map(winery => {
       return (
-        <li key={winery.id}>{winery.name}</li>
+        <p key={winery.id}>{winery.name}</p>
       )
     })
   }
   render() {
-    console.log(this.props)
     return (
       <div className="winery-list">
         {this.renderWineries()}

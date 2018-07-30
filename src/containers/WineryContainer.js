@@ -8,6 +8,7 @@ class WineryContainer extends Component {
     super(props)
     this.state = {
       wineries: [],
+      filteredWineries: [],
       regions: [],
       winerySearchInput: "",
     }
@@ -21,8 +22,10 @@ class WineryContainer extends Component {
   fetchWineries = () => {
     fetch(`http://localhost:3000/api/v1/wineries`)
     .then(res => res.json())
+    .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(wineries => this.setState({
       wineries,
+      filteredWineries: wineries,
     }))
   }
 
@@ -45,10 +48,20 @@ class WineryContainer extends Component {
   handleSearchInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
+    }, () => this.filteredWineries())
+  }
+
+  filteredWineries = () => {
+    const filteredWineries = this.state.wineries.filter(winery => {
+      return winery.name.toLowerCase().includes(this.state.winerySearchInput)
+    })
+    this.setState({
+      filteredWineries,
     })
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="winery-container">
         <div className="filter">
@@ -59,7 +72,7 @@ class WineryContainer extends Component {
           />
         </div>
         <div className="list-and-details">
-          <WineryList wineries={this.state.wineries}/>
+          <WineryList wineries={this.state.filteredWineries}/>
           <WineryDetailsContainer />
         </div>
       </div>
