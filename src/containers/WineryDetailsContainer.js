@@ -21,26 +21,24 @@ class WineryDetailsContainer extends Component {
         <h1>{this.props.winery["name"]}</h1>
         <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to Trip</button>
       </Fragment>
-    : null
+    : <div className="empty-detail-container"> <h3>Find Your Winery </h3></div>
   )
 
   renderDetails = () =>
-    (
       <Fragment>
-      <p>{this.props.displayedWinery["formatted_address"]}</p>
-      <div className="carrousel">
-       {this.props.displayedWinery.photos ? this.getPhotos() : null}
-      </div>
-      <MapWithAMarker
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1-4iAJOvlDv3Iw92XW4Xj7ldZOxa9MuY&v=3.exp&libraries=geometry,drawing,places"
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `200px`}} />}
-        mapElement={<div style={{ height: `100%`, width:`600px` }} />}
-        lat={this.props.displayedWinery.geometry.location.lat}
-        lng={this.props.displayedWinery.geometry.location.lng}
-      />
-      </Fragment>
-    )
+        <p>{this.props.displayedWinery["formatted_address"]}</p>
+        <div className="carrousel">
+          {this.props.displayedWinery.photos ? this.getPhotos() : null}
+        </div>
+        <MapWithAMarker
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1-4iAJOvlDv3Iw92XW4Xj7ldZOxa9MuY&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `200px`}} />}
+          mapElement={<div style={{ height: `100%`, width:`600px` }} />}
+          lat={this.props.displayedWinery.geometry.location.lat}
+          lng={this.props.displayedWinery.geometry.location.lng}
+        />
+        </Fragment>
 
   render() {
     return (
@@ -48,7 +46,7 @@ class WineryDetailsContainer extends Component {
         {this.renderHeader()}
         {this.props.displayedWinery
           ? this.renderDetails()
-          : <div>no data</div>
+          : null
         }
       </div>
     )

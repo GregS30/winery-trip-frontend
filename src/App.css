@@ -56,6 +56,7 @@ body {
   /* border: 1px solid black; */
   font-size: 20px;
   margin-top: 10px;
+  background-color: grey;
 }
 
 .winery-search {
@@ -154,6 +155,15 @@ input {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+.empty-detail-container {
+  color: white;
+  font-size: 3em;
+  height: 500px;
+  background-image: url("/assets/frontimage.jpg");
+  background-repeat: no-repeat;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
