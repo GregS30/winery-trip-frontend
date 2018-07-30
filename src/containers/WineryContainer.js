@@ -11,12 +11,13 @@ class WineryContainer extends Component {
     super(props)
     this.state = {
       wineries: null,
-      filteredWineries: [],
-
       regions: null,
-      winerySearchInput: "",
-
+      
       displayedWinery: null,
+
+      winerySearchInput: "",
+      selectedRegion: "Napa Valley",
+      selectedGrape: "Merlot",
     }
   }
 
@@ -28,11 +29,10 @@ class WineryContainer extends Component {
   }
   //Data
   fetchWineries = () => {
-    AdapterAPI.getWineries()
+    AdapterAPI.getWineries(this.state.selectedRegion,this.state.selectedGrape)
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(wineries => this.setState({
       wineries,
-      filteredWineries: wineries,
     }))
   }
 
@@ -49,6 +49,7 @@ class WineryContainer extends Component {
       grapes,
     }))
   }
+  
   //AC.Note: This is interesting. I'd move this function to FilterContainer and pass state regions to it instead.
   renderRegions = () => {
     if (this.state.regions) {
@@ -78,17 +79,15 @@ class WineryContainer extends Component {
   handleSearchInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
-    }, () => this.filteredWineries())
+    })
   }
 
-  filteredWineries = () => {
-    const filteredWineries = this.state.wineries.filter(winery => {
-      return winery.name.toLowerCase().includes(this.state.winerySearchInput)
-    })
+  handleGrapeSelect = (event) => {
     this.setState({
-      filteredWineries,
+      selectedGrape: event.target.value,
     })
   }
+
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
     AdapterAPI.getWineryData(selectedWinery.name)
@@ -96,6 +95,18 @@ class WineryContainer extends Component {
       json["message"] ? null : this.setState({displayedWinery: json})
     })
   }  
+
+  filterWineries = () => {
+    if (this.state.wineries) {
+      const filteredWineries = this.state.wineries.filter(winery => {
+        return winery.name.toLowerCase().includes(this.state.winerySearchInput)
+      })
+      return filteredWineries
+    }
+    else {
+      return null
+    }
+  }
 
 
   render() {
@@ -105,15 +116,14 @@ class WineryContainer extends Component {
           <FilterContainer
             renderRegions={this.renderRegions}
             renderGrapes={this.renderGrapes}
-
-
             winerySearchInput={this.state.winerySearchInput}
             handleSearchInputChange={this.handleSearchInputChange}
+            handleGrapeSelect={this.handleGrapeSelect}
           />
         </div>
         <div className="list-and-details">
           <WineryList
-            wineries={this.state.filteredWineries}
+            wineries={this.filterWineries()}
             handleClick={this.handleClick}
           />
           <WineryDetailsContainer

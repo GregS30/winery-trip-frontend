@@ -8,8 +8,8 @@ class AdapterAPI {
            .then(r => r.json())
     }
 
-    static getWineries() {
-        return fetch(`${API}/wineries`)
+    static getWineries(region, grape) {
+        return fetch(`${API}/wineries?region=${region}&grape=${grape}`)
              .then(r => r.json())
     }
 
