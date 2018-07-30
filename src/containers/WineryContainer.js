@@ -10,8 +10,8 @@ class WineryContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      wineries: [],
-      regions: [],
+      wineries: null,
+      regions: null,
       winerySearchInput: "",
       displayedWinery: null,
     }
@@ -38,11 +38,15 @@ class WineryContainer extends Component {
   }
   //AC.Note: This is interesting. I'd move this function to FilterContainer and pass state regions to it instead.
   renderRegions = () => {
+    if (this.state.regions) {
     return this.state.regions.map(region => {
       return (
         <option key={region.id}>{region.name}</option>
       )
     })
+  } else {
+    return null
+  }
   }
 
   //PROPS FUNCTIONALITY: NavBar handlers
@@ -58,6 +62,7 @@ class WineryContainer extends Component {
   }  
 
   render() {
+    console.log(this.state.wineries)
     return (
       <div className="winery-container">
         <div className="filter">

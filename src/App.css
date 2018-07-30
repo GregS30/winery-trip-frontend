@@ -89,6 +89,7 @@ body {
 select {
   margin: 5px;
 }
+
 input {
   margin: 5px;
 }
@@ -105,7 +106,6 @@ input {
   margin: 5px;
   border: 1px solid black;
   overflow-y: scroll;
-  height:300px;
 }
 
 
