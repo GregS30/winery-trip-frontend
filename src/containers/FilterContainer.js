@@ -10,7 +10,7 @@ class FilterContainer extends Component {
     return (
       <div className="filter-container">
         <WinerySearch winerySearchInput={this.props.winerySearchInput} handleSearchInputChange={this.props.handleSearchInputChange}/>
-        <GrapeFilter />
+        <GrapeFilter renderGrapes={this.props.renderGrapes}/>
         <RegionFilter renderRegions={this.props.renderRegions}/>
       </div>
     )
