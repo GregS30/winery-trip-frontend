@@ -15,7 +15,7 @@ class WineryContainer extends Component {
 
       regions: null,
       winerySearchInput: "",
-      
+
       displayedWinery: null,
     }
   }
@@ -24,6 +24,7 @@ class WineryContainer extends Component {
   componentDidMount() {
     this.fetchWineries();
     this.fetchRegions();
+    this.fetchGrapes();
   }
   //Data
   fetchWineries = () => {
@@ -41,12 +42,31 @@ class WineryContainer extends Component {
       regions,
     }))
   }
+
+  fetchGrapes = () => {
+    AdapterAPI.getGrapes()
+    .then(grapes => this.setState({
+      grapes,
+    }))
+  }
   //AC.Note: This is interesting. I'd move this function to FilterContainer and pass state regions to it instead.
   renderRegions = () => {
     if (this.state.regions) {
     return this.state.regions.map(region => {
       return (
         <option key={region.id}>{region.name}</option>
+      )
+    })
+  } else {
+    return null
+  }
+  }
+
+  renderGrapes = () => {
+    if (this.state.grapes) {
+    return this.state.grapes.map(grape => {
+      return (
+        <option key={grape.id}>{grape.name}</option>
       )
     })
   } else {
@@ -77,12 +97,16 @@ class WineryContainer extends Component {
     })
   }  
 
+
   render() {
     return (
       <div className="winery-container">
         <div className="filter">
           <FilterContainer
             renderRegions={this.renderRegions}
+            renderGrapes={this.renderGrapes}
+
+
             winerySearchInput={this.state.winerySearchInput}
             handleSearchInputChange={this.handleSearchInputChange}
           />
@@ -92,7 +116,7 @@ class WineryContainer extends Component {
             wineries={this.state.filteredWineries}
             handleClick={this.handleClick}
           />
-          <WineryDetailsContainer 
+          <WineryDetailsContainer
             displayedWinery={this.state.displayedWinery}
           />
 
