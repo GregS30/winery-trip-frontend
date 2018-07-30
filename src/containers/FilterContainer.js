@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 //COMPONENTS
 import WinerySearch from '../components/WinerySearch.js';
@@ -8,17 +8,21 @@ import RegionFilter from '../components/RegionFilter.js';
 class FilterContainer extends Component {
   render() {
     return (
-      <div className="filter-container">
-        <WinerySearch winerySearchInput={this.props.winerySearchInput} handleSearchInputChange={this.props.handleSearchInputChange}/>
-        <GrapeFilter 
-          renderGrapes={this.props.renderGrapes}
-          handleGrapeSelect={this.props.handleGrapeSelect}
-        />
-        <RegionFilter 
-          renderRegions={this.props.renderRegions}
-          handleRegionSelect={this.props.handleRegionSelect}
-        />
-      </div>
+      <Fragment>
+        <h3>Find your winery</h3>
+        <div className="filter-container">
+          <WinerySearch winerySearchInput={this.props.winerySearchInput} handleSearchInputChange={this.props.handleSearchInputChange}/>
+          <GrapeFilter 
+            renderGrapes={this.props.renderGrapes}
+            handleGrapeSelect={this.props.handleGrapeSelect}
+          />
+          <RegionFilter 
+            renderRegions={this.props.renderRegions}
+            handleRegionSelect={this.props.handleRegionSelect}
+          />
+        </div>
+      </Fragment>
+
     )
   }
 }

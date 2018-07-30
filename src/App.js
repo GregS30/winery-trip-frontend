@@ -73,6 +73,7 @@ class App extends Component {
               />
            </React.Fragment>
          </Router>
+         <Footer />
       </div>
     );
   }

@@ -18,8 +18,8 @@ class WineryDetailsContainer extends Component {
   renderHeader = () => (
     this.props.winery
     ? <Fragment>
-        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to Trip</button>
         <h1>{this.props.winery["name"]}</h1>
+        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to Trip</button>
       </Fragment>
     : null
   )

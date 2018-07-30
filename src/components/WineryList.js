@@ -6,10 +6,10 @@ class WineryList extends Component {
     if (this.props.wineries) {
     return this.props.wineries.map(winery => {
       return (
-        <li
+        <p
           key={winery.id}
           onClick={(e) => this.props.handleClick(e, winery)}
-        >{winery.name}</li>
+        >{winery.name}</p>
 
       )
     })
@@ -20,8 +20,13 @@ class WineryList extends Component {
 
   render() {
     return (
-      <div className="winery-list">
+      <div>
+        <div>
+          <h3 className="winery-header">Wineries</h3>
+        </div>
+        <div className="winery-list">
         {this.renderWineries()}
+        </div>
       </div>
     )
   }
