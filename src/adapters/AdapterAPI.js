@@ -22,6 +22,11 @@ class AdapterAPI {
         return fetch(`${API}/grapes`)
              .then(r => r.json())
     }
+
+    static getWines(wineryID) {
+        return fetch(`${API}/wines?wineryId=${wineryID}`)
+             .then(r => r.json())
+    }
 }
 
 export default AdapterAPI;

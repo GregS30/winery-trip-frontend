@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react';
+
+//COMPONENTS
 import MapWithAMarker from '../components/MapWithAMarker'
+import WinesList from '../components/WinesList'
 
 class WineryDetailsContainer extends Component {
 
@@ -27,6 +30,7 @@ class WineryDetailsContainer extends Component {
       ? <h3>Sorry, there is no available information for this winery at this time.</h3>
       : null
     :null
+
   renderSchedule = () => this.props.displayedWinery && this.props.displayedWinery["opening_hours"] && this.props.displayedWinery["opening_hours"] 
   ? this.props.displayedWinery["opening_hours"]["weekday_text"] 
       ? <Fragment>
@@ -49,8 +53,7 @@ class WineryDetailsContainer extends Component {
         alt="{this.props.displayedWinery.name}"
       />
     )
-  }
-  )
+  })
 
   renderPhotos = () => this.props.displayedWinery
     ? <div className="carrousel">
@@ -69,17 +72,27 @@ class WineryDetailsContainer extends Component {
     />
     : null
 
+    renderWines = () => this.props.winery 
+      ? <WinesList winery={this.props.winery.id} />
+      : null
+
   render() {
     return (
-      <div className="winery-details-container">
-        {this.renderHeader()}
-        {this.renderNoInfo()}
-        {this.renderAddress()}
-        {this.renderPhotos()}
-        {this.renderOpened()}
-        {this.renderSchedule()}
-        {this.renderMap()}
-      </div>
+      <Fragment className="winery-details-container">
+        <div className="winery-details-container">
+          {this.renderHeader()}
+          {this.renderAddress()}
+          {this.renderPhotos()}
+          {this.renderOpened()}
+          {this.renderSchedule()}
+          {this.renderMap()}
+          {this.renderNoInfo()}
+        </div>
+        <div>
+          {this.renderWines()}
+        </div>
+      </Fragment>
+
     )
   }
 }
