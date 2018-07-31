@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { API } from '../adapters/Adapter'
+import Adapter from '../adapters/Adapter'
 
 class Login extends Component {
   state = {
@@ -25,7 +26,8 @@ class Login extends Component {
     .then(resp => resp.json())
     .then(json => {
       console.log("handleSubmit", json)
-      localStorage.setItem('token', json.token);
+      debugger;
+      Adapter.setToken(json.token);
       this.props.setUser(json.username, json.id);
     })
    }

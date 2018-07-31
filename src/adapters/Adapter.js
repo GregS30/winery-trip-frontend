@@ -3,11 +3,11 @@ export const API = 'http://localhost:3000/api/v1';
 
 class Adapter {
   static setToken(jsonToken) {
-    localStorage.setItem("token", jsonToken)
+    return localStorage.setItem("token", jsonToken)
   }
 
   static getToken() {
-    localStorage.getItem("token")
+    return localStorage.getItem("token")
   }
 
   static deleteToken() {

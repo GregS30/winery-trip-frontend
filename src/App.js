@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import Adapter from './adapters/Adapter'
 
 //CSS
 import './App.css';
@@ -23,6 +24,26 @@ class App extends Component {
     }
   }
 
+  componentDidMount(){
+    Adapter.getCurrentUser()
+     .then(json => {
+       console.log(json);
+       this.setState({
+           id: json.id,
+           username: json.username,
+       }, () => {
+           this.loadTrips(this.state.id); //other derived info
+       })
+     })
+     .catch(err => {
+         // console.warn(err);
+       Adapter.deleteToken();
+     })
+   }
+
+   loadTrips = () => {
+     console.log("loadTrips")
+   }
 
 
   setUser = (username, id) => {
