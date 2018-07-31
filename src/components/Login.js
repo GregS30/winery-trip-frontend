@@ -7,10 +7,6 @@ class Login extends Component {
     password: "",
   }
 
-  // componentDidMount() {
-  //   console.log(localStorage.getItem('token'));
-  // }
-  //
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -18,36 +14,20 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
-    if (event.target.value === "sign-up") {
-      fetch(`${API}/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.state)
-      })
-      .then(resp => resp.json())
-      .then(json => {
-        console.log(json)
-        localStorage.setItem('token', json.token);
-        this.props.setUser(json.username, json.id);
-      })
-    } else if (event.target.value === "login") {
-      fetch(`${API}/sessions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.state)
-      })
-      .then(resp => resp.json())
-      .then(
-        json => {
-        localStorage.setItem('token', json.token);
-        this.props.setUser(json.username, json.id);
-      }
-    )
-    }
+    event.preventDefault()
+    fetch(`${API}/${event.target.value}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state)
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      console.log("handleSubmit", json)
+      localStorage.setItem('token', json.token);
+      this.props.setUser(json.username, json.id);
+    })
    }
 
   render() {
@@ -70,9 +50,8 @@ class Login extends Component {
             onChange={this.handleChange}
             value={this.state.password}
           />
-        <button type="submit" value="login" onClick={(event) => this.handleSubmit(event)}>Login</button>
-        Or
-        <button type="submit" value="sign-up" onClick={(event) => this.handleSubmit(event)}>Sign Up</button>
+        <button type="submit" value="sessions" onClick={(event) => this.handleSubmit(event)}>Login</button>
+        <button type="submit" value="signup" onClick={(event) => this.handleSubmit(event)}>Sign Up</button>
         </form>
       </div>
     )
