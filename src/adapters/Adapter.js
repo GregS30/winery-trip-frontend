@@ -1,4 +1,4 @@
-export const API = 'http://localhost:3000';
+export const API = 'http://localhost:3000/api/v1';
 // const API = 'https://winery-trip.herokuapp.com/api/v1/';
 
 class Adapter {

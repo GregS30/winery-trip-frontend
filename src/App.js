@@ -16,7 +16,7 @@ class App extends Component {
     super()
     this.state = {
       username: "",
-      password: "",
+      id: "",
       loggedIn: false,
       trip: [],
       winery: null,
@@ -25,10 +25,10 @@ class App extends Component {
 
 
 
-  setUser = (loginState) => {
+  setUser = (username, id) => {
     this.setState({
-      username: loginState.username,
-      password: loginState.password,
+      username: username,
+      id: id,
       loggedIn: true,
       }, () => console.log(this.state)
     );
@@ -56,6 +56,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="App">
         <Header />

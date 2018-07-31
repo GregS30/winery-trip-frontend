@@ -18,29 +18,42 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log('handleSubmit');
-    event.preventDefault();
-    fetch(`${API}/sessions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.state)
-    })
+    if (event.target.value === "sign-up") {
+      fetch(`${API}/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.state)
+      })
       .then(resp => resp.json())
       .then(json => {
         console.log(json)
         localStorage.setItem('token', json.token);
-        this.props.setUser(json.id, json.username);
-//        this.props.history.push('/recipes');
+        this.props.setUser(json.username, json.id);
       })
-
+    } else if (event.target.value === "login") {
+      fetch(`${API}/sessions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.state)
+      })
+      .then(resp => resp.json())
+      .then(
+        json => {
+        localStorage.setItem('token', json.token);
+        this.props.setUser(json.username, json.id);
+      }
+    )
+    }
    }
 
   render() {
     return (
       <div className="login">
-        <form onSubmit={(event) => this.handleSubmit(event)}>
+        <form >
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -57,7 +70,9 @@ class Login extends Component {
             onChange={this.handleChange}
             value={this.state.password}
           />
-          <input type="submit" value="Login" />
+        <button type="submit" value="login" onClick={(event) => this.handleSubmit(event)}>Login</button>
+        Or
+        <button type="submit" value="sign-up" onClick={(event) => this.handleSubmit(event)}>Sign Up</button>
         </form>
       </div>
     )
