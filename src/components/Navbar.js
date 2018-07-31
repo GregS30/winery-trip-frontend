@@ -6,10 +6,10 @@ const Navbar = (props) => {
 
   return (
     <div className="navbar">
-      <NavLink to="/home" exact>Home</NavLink>
       {props.loggedIn
         ?
           <Fragment>
+            <NavLink to="/home" exact>Home</NavLink>
             <NavLink to="/mytrips" exact>My Trips</NavLink>
             <button onClick={props.handleLogout}>Log Out</button>
           </Fragment>
