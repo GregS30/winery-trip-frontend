@@ -8,8 +8,19 @@ class WinesList extends Component {
         wines: null,
     }
 
+    componentDidMount() {
+        if (this.props.winery) {
+            AdapterAPI.getWines(this.props.winery)
+            .then(json => this.setState({
+                wines: json,
+            }))
+        } else {
+            null
+        }
+        }
+
     componentDidUpdate(prevProps, prevState) {
-    if (this.props.winery && this.state.wines !== prevState.wines) {
+    if (this.props.winery !== prevProps.winery) {
         AdapterAPI.getWines(this.props.winery)
         .then(json => this.setState({
             wines: json,
