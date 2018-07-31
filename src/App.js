@@ -61,14 +61,20 @@ class App extends Component {
         <Header />
         <Router>
            <React.Fragment>
-             <Navbar
-               handleLogout={this.handleLogout}
-               loggedIn={this.state.loggedIn}
-               handleSubmit={this.handleSubmit} />
-             <Route
-               path="/home"
-               render={() =>
-                 <WineryContainer saveWinery={this.saveWinery}
+            <Navbar
+              handleLogout={this.handleLogout}
+              loggedIn={this.state.loggedIn}
+              handleSubmit={this.handleSubmit} />
+            <Route
+              path="/"
+              render={() =>
+                <WineryContainer saveWinery={this.saveWinery}
+                />}
+              />
+              <Route
+              path="/home"
+              render={() =>
+                <WineryContainer saveWinery={this.saveWinery}
                 />}
               />
            </React.Fragment>
