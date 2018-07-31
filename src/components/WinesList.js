@@ -8,7 +8,7 @@ class WinesList extends Component {
         wines: null,
     }
 
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState) {
     if (this.props.winery) {
         AdapterAPI.getWines(this.props.winery)
         .then(json => this.setState({
