@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API } from '../adapters/Adapter'
 
 class Login extends Component {
   state = {
@@ -16,38 +17,30 @@ class Login extends Component {
     })
   }
 
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
-  //
+  handleSubmit = (event) => {
+    console.log('handleSubmit');
+    event.preventDefault();
+    fetch(`${API}/sessions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state)
+    })
+      .then(resp => resp.json())
+      .then(json => {
+        console.log(json)
+        localStorage.setItem('token', json.token);
+        this.props.setUser(json.id, json.username);
+//        this.props.history.push('/recipes');
+      })
 
-    // event.preventDefault();
-    // fetch('http://localhost:3000/sessions', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(this.state)
-    // })
-    //   .then(res => res.json())
-    //   .then(json => {
-    //     console.log(json)
-    //     // lift state to the top and keep token there
-    //     // refresh == token gone
-    //     // magical place in browser <=====
-    //     // cookie!
-    //     // global variable outside of react == var
-    //     localStorage.setItem('token', json.token);
-    //     this.props.setUser(json.id, json.username);
-    //     this.props.history.push('/recipes');
-    //   })
-    //
-   // }
+   }
 
   render() {
-    console.log('login rendered');
     return (
       <div className="login">
-        <form onSubmit={(event) => this.props.handleSubmit(event, this.state)}>
+        <form onSubmit={(event) => this.handleSubmit(event)}>
           <label htmlFor="username">Username</label>
           <input
             type="text"

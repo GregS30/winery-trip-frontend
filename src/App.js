@@ -23,8 +23,9 @@ class App extends Component {
     }
   }
 
-  handleSubmit = (event, loginState) => {
-    event.preventDefault();
+
+
+  setUser = (loginState) => {
     this.setState({
       username: loginState.username,
       password: loginState.password,
@@ -54,7 +55,6 @@ class App extends Component {
 
   }
 
-
   render() {
     return (
       <div className="App">
@@ -64,7 +64,7 @@ class App extends Component {
             <Navbar
               handleLogout={this.handleLogout}
               loggedIn={this.state.loggedIn}
-              handleSubmit={this.handleSubmit} />
+              setUser={this.setUser} />
             <Route
               path="/"
               render={() =>

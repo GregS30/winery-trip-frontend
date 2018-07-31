@@ -13,7 +13,7 @@ const Navbar = (props) => {
             <NavLink to="/mytrips" exact>My Trips</NavLink>
             <button onClick={props.handleLogout}>Log Out</button>
           </Fragment>
-        : <Login handleSubmit={props.handleSubmit} />
+        : <Login setUser={props.setUser} />
       }
     </div>
   )
