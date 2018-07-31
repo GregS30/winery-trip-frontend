@@ -125,7 +125,6 @@ class WineryContainer extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="winery-container">
         <div className="filter">
