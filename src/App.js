@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 //CSS
@@ -80,15 +80,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+          
         <Router>
-           <React.Fragment>
-            <Navbar
-              handleLogout={this.handleLogout}
-              loggedIn={this.state.loggedIn}
-              setUser={this.setUser}
-            />
-            <Route
+          <Fragment>
+            <div className="header-nav">
+              <Header />
+              <Navbar
+                    handleLogout={this.handleLogout}
+                    loggedIn={this.state.loggedIn}
+                    setUser={this.setUser}
+              />
+            </div>
+            <Route  
               path="/"
               render={() =>
                 <WineryContainer 
@@ -96,7 +99,7 @@ class App extends Component {
                   username={this.state.username}
                 />}
             />
-           </React.Fragment>
+          </Fragment>
         </Router>
         <Footer />
       </div>

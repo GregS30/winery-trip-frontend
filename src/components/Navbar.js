@@ -10,11 +10,11 @@ const Navbar = (props) => {
     <div className="navbar">
       {props.loggedIn
         ?
-          <Fragment>
-            <NavLink to="/home" exact>Home</NavLink>
-            <NavLink to="/mytrips" exact>My Trips</NavLink>
+          <div>
+            <NavLink to="/home" exact>Home</NavLink><br/>
+            <NavLink to="/mytrips" exact>My Trips</NavLink><br/>
             <button onClick={props.handleLogout}>Log Out</button>
-          </Fragment>
+          </div>
         : <Login setUser={props.setUser} />
       }
     </div>

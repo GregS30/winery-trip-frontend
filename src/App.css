@@ -36,6 +36,12 @@ h3 {
   flex: 70%;
 }
 
+.header-nav {
+  display: flex;
+  flex: 20%;
+  flex-wrap: wrap;
+}
+
 .navbar {
   display: flex;
   flex-direction: row;
