@@ -15,7 +15,10 @@ const Navbar = (props) => {
             <NavLink to="/mywineries" exact>My Wineries</NavLink><br/>
             <button onClick={props.handleLogout}>Log Out</button>
           </div>
-        : <Login setUser={props.setUser} />
+        : <Login 
+            setUser={props.setUser}
+            getMyWineries ={props.getMyWineries}
+          />
       }
     </div>
   )

@@ -31,6 +31,7 @@ class Login extends Component {
     .then(json => {
       Adapter.setToken(json.token);
       this.props.setUser(json.username, json.id);
+      this.props.getMyWineries();
     })
    }
 

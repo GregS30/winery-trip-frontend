@@ -152,6 +152,7 @@ class WineryContainer extends Component {
             saveWinery={this.props.saveWinery}
             displayedWinery={this.state.displayedWinery}
             winery={this.state.winery}
+            myWineries={this.props.myWineries}
           />
 
         </div>

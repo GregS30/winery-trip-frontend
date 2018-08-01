@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, withRouter} from 'react-router-dom';
 
 //CSS
 import './App.css';
@@ -37,7 +37,7 @@ class App extends Component {
             id: json.id,
             username: json.username,
             loggedIn: true,
-        }, this.getMyWineries )
+        }, this.getMyWineries)
       })
       .catch(err => {
           // console.warn(err);
@@ -77,8 +77,7 @@ class App extends Component {
       username: "",
       password: "",
       loggedIn: false,
-      }
-    );
+      }, () => this.props.history.push('/'));
   }
 
   //PROPS FUNCTIONALITY: WineryContainer handlers
@@ -98,6 +97,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.myWineries)
     return (
       <div className="App">
 
@@ -109,6 +109,7 @@ class App extends Component {
                     handleLogout={this.handleLogout}
                     loggedIn={this.state.loggedIn}
                     setUser={this.setUser}
+                    getMyWineries ={this.getMyWineries}
               />
             </div>
             <Route
@@ -117,6 +118,7 @@ class App extends Component {
                 <WineryContainer
                   saveWinery={this.saveWinery}
                   username={this.state.username}
+                  myWineries={this.state.myWineries}
                 />}
             />
             <Route
@@ -136,4 +138,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

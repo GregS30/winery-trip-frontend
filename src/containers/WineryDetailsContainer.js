@@ -17,9 +17,14 @@ class WineryDetailsContainer extends Component {
           : this.props.winery["name"]
         }
         </h1>
-        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add My Wineries</button>
+        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to My Wineries</button>
       </Fragment>
     : <div className="empty-detail-container"> <h3>Find Your Winery </h3></div>
+
+
+  renderBtn = () => this.props.myWineries.includes (this.props.displayedWinery)
+      ? <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to My Wineries</button>
+      : <button onClick={() => this.props.removeWinery(this.props.winery)}>Remove from My Wineries</button>
 
   renderOpened = () => this.props.displayedWinery && this.props.displayedWinery["opening_hours"]
     ? this.props.displayedWinery["opening_hours"]["opened_now"]
@@ -83,6 +88,7 @@ class WineryDetailsContainer extends Component {
       <div className="winery-details-container">
         <div className="winery-details-container">
           {this.renderHeader()}
+          {this.renderBtn()}
           {this.renderAddress()}
           {this.renderPhotos()}
           {this.renderOpened()}
