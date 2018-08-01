@@ -6,6 +6,7 @@ import './App.css';
 
 //ADAPTERS
 import Adapter from './adapters/Adapter'
+import { API } from './adapters/Adapter'
 
 //COMPONENTS
 import Header from './components/Header.js';
@@ -21,7 +22,7 @@ class App extends Component {
       username: "",
       id: "",
       loggedIn: false,
-      trip: [],
+      myWineries: [],
       winery: null,
     }
   }
@@ -66,15 +67,18 @@ class App extends Component {
 
   //PROPS FUNCTIONALITY: WineryContainer handlers
   saveWinery = (winery) => {
-    console.log("winery=", winery)
-    let newTrip = [...this.state.trip, winery]
-//    newTrip.push(winery)
-
-    this.setState({
-      winery: winery,
-      trip: newTrip,
-    }, () => console.log(this.state));
-
+    fetch(`${API}/users/${this.state.id}/wineries`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({winery_id: winery.id})
+    })
+    .then(resp => resp.json())
+    .then(json => this.setState({
+          myWineries: json,
+        }, () => console.log(this.state))
+      )
   }
 
   render() {
@@ -103,6 +107,7 @@ class App extends Component {
               exact path="/mywineries"
               render={() =>
                 <TripContainer
+                  myWineries={this.state.myWineries}
                 />}
             />
 

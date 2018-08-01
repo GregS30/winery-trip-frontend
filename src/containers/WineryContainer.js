@@ -129,7 +129,7 @@ class WineryContainer extends Component {
 
   render() {
     return (
-      <div className="winery-container">
+      <div className="container">
         <div className="filter">
           <FilterContainer
             username={this.props.username}

@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
+import UUID from 'uuid';
 
 //COMPONENTS
 import MapWithAMarker from '../components/MapWithAMarker'
 import WinesList from '../components/WinesList'
+
 
 class WineryDetailsContainer extends Component {
 
@@ -10,37 +12,37 @@ class WineryDetailsContainer extends Component {
     ? <Fragment>
         <h1>
         {
-          this.props.displayedWinery 
+          this.props.displayedWinery
           ? this.props.displayedWinery["name"]
           : this.props.winery["name"]
         }
         </h1>
-        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to Trip</button>
+        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add My Wineries</button>
       </Fragment>
     : <div className="empty-detail-container"> <h3>Find Your Winery </h3></div>
 
   renderOpened = () => this.props.displayedWinery && this.props.displayedWinery["opening_hours"]
-    ? this.props.displayedWinery["opening_hours"]["opened_now"] 
+    ? this.props.displayedWinery["opening_hours"]["opened_now"]
         ? <h3>Opened Now</h3>
         : <h3>Closed Now</h3>
     : null
-  
-  renderNoInfo = () => this.props.winery 
+
+  renderNoInfo = () => this.props.winery
     ? !this.props.displayedWinery
       ? <h3>Sorry, there is no available information for this winery at this time.</h3>
       : null
     :null
 
-  renderSchedule = () => this.props.displayedWinery && this.props.displayedWinery["opening_hours"] && this.props.displayedWinery["opening_hours"] 
-  ? this.props.displayedWinery["opening_hours"]["weekday_text"] 
+  renderSchedule = () => this.props.displayedWinery && this.props.displayedWinery["opening_hours"] && this.props.displayedWinery["opening_hours"]
+  ? this.props.displayedWinery["opening_hours"]["weekday_text"]
       ? <Fragment>
           <h3> Schedule </h3>
-          {this.props.displayedWinery["opening_hours"]["weekday_text"].map((day) => <p>{day}</p>)}
+          {this.props.displayedWinery["opening_hours"]["weekday_text"].map((day) => <p key={UUID()}>{day}</p>)}
         </Fragment>
       : null
   : null
 
-  renderAddress = () => this.props.displayedWinery 
+  renderAddress = () => this.props.displayedWinery
     ? <p>Address: {this.props.displayedWinery["formatted_address"]}</p>
     : null
 
@@ -60,8 +62,8 @@ class WineryDetailsContainer extends Component {
         {this.props.displayedWinery.photos ? this.getPhotos() : null}
       </div>
     : null
-    
-  renderMap = () =>  this.props.displayedWinery    
+
+  renderMap = () =>  this.props.displayedWinery
     ? <MapWithAMarker
       googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1-4iAJOvlDv3Iw92XW4Xj7ldZOxa9MuY&v=3.exp&libraries=geometry,drawing,places"
       loadingElement={<div style={{ height: `100%` }} />}
@@ -72,7 +74,7 @@ class WineryDetailsContainer extends Component {
     />
     : null
 
-    renderWines = () => this.props.winery 
+    renderWines = () => this.props.winery
       ? <WinesList winery={this.props.winery.id} />
       : null
 
@@ -89,7 +91,6 @@ class WineryDetailsContainer extends Component {
           {this.renderNoInfo()}
         </div>
         <div>
-          {this.renderWines()}
         </div>
       </div>
 
