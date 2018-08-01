@@ -37,14 +37,30 @@ class App extends Component {
             id: json.id,
             username: json.username,
             loggedIn: true,
-        })
+        }, this.getMyWineries )
       })
       .catch(err => {
           // console.warn(err);
         Adapter.deleteToken();
       })
     }
-   }
+  }
+
+  getMyWineries = () => {
+    Adapter.getMyWineries(this.state.id)
+    .then(json => {
+      console.log(json);
+      this.setState({
+        myWineries: json,
+      })
+    })
+    .catch(err => {
+        // console.warn(err);
+      Adapter.deleteToken();
+    })
+  }
+
+
 
   //PROPS FUNCTIONALITY: NavBar handlers
   setUser = (username, id) => {
@@ -108,6 +124,7 @@ class App extends Component {
               render={() =>
                 <TripContainer
                   myWineries={this.state.myWineries}
+                  username={this.state.username}
                 />}
             />
 

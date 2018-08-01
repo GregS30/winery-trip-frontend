@@ -36,6 +36,7 @@ class TripContainer extends Component {
   render() {
     return (
       <div className="container">
+        <h3>Welcome, {this.props.username.charAt(0).toUpperCase() + this.props.username.slice(1)}. Your Wineries.</h3>
         <div className="list-and-details">
           <WineryList
             wineries={this.props.myWineries}

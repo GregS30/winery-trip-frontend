@@ -33,6 +33,24 @@ class Adapter {
     });
   }
 
+  static getMyWineries(id) {
+    return fetch(`${API}/users/${id}/wineries`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": this.getToken()
+      }
+    })
+    .then(resp =>
+      {
+        if (resp.ok) {
+          return resp.json()
+        }
+        else {
+          console.log("error getMyWineries()")
+        }
+    });
+  }
 
 }
 
