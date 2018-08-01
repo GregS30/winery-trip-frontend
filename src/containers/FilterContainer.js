@@ -11,7 +11,10 @@ class FilterContainer extends Component {
   render() {
     return (
       <Fragment>
-        <h3>Welcome, {this.props.username.charAt(0).toUpperCase() + this.props.username.slice(1)}. Find your winery</h3>
+        {this.props.username
+          ? <h3>Welcome, {this.props.username.charAt(0).toUpperCase() + this.props.username.slice(1)}. Find your winery</h3>
+          : <h3>Find your winery</h3>
+        }
         <div className="filter-container">
           <WinerySearch winerySearchInput={this.props.winerySearchInput} handleSearchInputChange={this.props.handleSearchInputChange}/>
           <GrapeFilter 
