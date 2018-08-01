@@ -31,8 +31,7 @@ class App extends Component {
        this.setState({
            id: json.id,
            username: json.username,
-       }, () => {
-           this.loadTrips(this.state.id); //other derived info
+           loggedIn: true,
        })
      })
      .catch(err => {
@@ -41,18 +40,12 @@ class App extends Component {
      })
    }
 
-   loadTrips = () => {
-     console.log("loadTrips")
-   }
-
-
   setUser = (username, id) => {
     this.setState({
       username: username,
       id: id,
       loggedIn: true,
-      }, () => console.log(this.state)
-    );
+      });
   }
 
   handleLogout = (event) => {
@@ -77,7 +70,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="App">
         <Header />
