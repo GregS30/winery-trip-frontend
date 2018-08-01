@@ -47,7 +47,6 @@ class TripContainer extends Component {
             displayedWinery={this.state.displayedWinery}
             winery={this.state.winery}
             myWineries={this.props.myWineries}
-
           />
 
         </div>

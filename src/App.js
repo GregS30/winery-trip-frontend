@@ -60,8 +60,6 @@ class App extends Component {
     })
   }
 
-
-
   //PROPS FUNCTIONALITY: NavBar handlers
   setUser = (username, id) => {
     this.setState({

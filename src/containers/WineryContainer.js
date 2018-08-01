@@ -17,6 +17,7 @@ class WineryContainer extends Component {
       regions: null,
 
       displayedWinery: null,
+      displayedWineryId: null,
 
       winerySearchInput: "",
       selectedRegion: "Napa Valley",
@@ -104,13 +105,15 @@ class WineryContainer extends Component {
     AdapterAPI.getWineryData(selectedWinery.name)
     .then(json => {
       json["message"]
-        ? this.setState(
-          {displayedWinery: null,
+        ? this.setState({
+          displayedWinery: null,
           winery: selectedWinery,
+          displayedWineryId: null,
         })
-        : this.setState(
-        {displayedWinery: json,
+        : this.setState({
+          displayedWinery: json,
           winery: selectedWinery,
+          displayedWineryId: selectedWinery.id,
         });
     })
   }
@@ -151,6 +154,7 @@ class WineryContainer extends Component {
           <WineryDetailsContainer
             saveWinery={this.props.saveWinery}
             displayedWinery={this.state.displayedWinery}
+            displayedWineryId={this.state.displayedWineryId}
             winery={this.state.winery}
             myWineries={this.props.myWineries}
           />
