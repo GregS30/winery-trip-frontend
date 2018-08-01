@@ -28,19 +28,21 @@ class App extends Component {
 
   // AUTO-LOGIN functionality -if token is present in LocalStorage
   componentDidMount(){
-    Adapter.getCurrentUser()
-     .then(json => {
-       console.log(json);
-       this.setState({
-           id: json.id,
-           username: json.username,
-           loggedIn: true,
-       })
-     })
-     .catch(err => {
-         // console.warn(err);
-       Adapter.deleteToken();
-     })
+    if (Adapter.getToken()) {
+      Adapter.getCurrentUser()
+      .then(json => {
+        console.log(json);
+        this.setState({
+            id: json.id,
+            username: json.username,
+            loggedIn: true,
+        })
+      })
+      .catch(err => {
+          // console.warn(err);
+        Adapter.deleteToken();
+      })
+    }
    }
 
   //PROPS FUNCTIONALITY: NavBar handlers
