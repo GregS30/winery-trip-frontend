@@ -16,7 +16,7 @@ class WinesList extends Component {
                 wines: json,
             }))
         } else {
-            null
+            return null
         }
     }
 
@@ -29,7 +29,7 @@ class WinesList extends Component {
             }))
         } 
         else {
-            null
+            return null
         }
     }
 
