@@ -27,7 +27,7 @@ class WinesList extends Component {
             .then(json => this.setState({
                 wines: json,
             }))
-        } 
+        }
         else {
             return null
         }
@@ -49,13 +49,18 @@ class WinesList extends Component {
         console.log(this.state.wines)
         return (
             <Fragment>
+                <br/>
                 <h3>Our Cellar</h3>
                 <table>
+                    <thead>
                     <tr>
                         <th>Wine</th>
-                        <th>Type</th> 
+                        <th>Type</th>
                     </tr>
+                  </thead>
+                  <tbody>
                     {this.state.wines ? this.buildWinesList() : null}
+                  </tbody>
                 </table>
             </Fragment>
         );

@@ -88,13 +88,14 @@ class WineryDetailsContainer extends Component {
       <div className="winery-details-container">
         <div className="winery-details-container">
           {this.renderHeader()}
-          {this.renderBtn()}
           {this.renderAddress()}
           {this.renderPhotos()}
           {this.renderOpened()}
           {this.renderSchedule()}
           {this.renderMap()}
+          {this.renderWines()}
           {this.renderNoInfo()}
+
         </div>
         <div>
         </div>

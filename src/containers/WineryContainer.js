@@ -43,6 +43,7 @@ class WineryContainer extends Component {
 
   fetchRegions = () => {
     AdapterAPI.getRegions()
+    .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(regions => this.setState({
       regions,
     }))
@@ -50,6 +51,7 @@ class WineryContainer extends Component {
 
   fetchGrapes = () => {
     AdapterAPI.getGrapes()
+    .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(grapes => this.setState({
       grapes,
     }))
