@@ -89,7 +89,9 @@ class App extends Component {
             <Route
               path="/"
               render={() =>
-                <WineryContainer saveWinery={this.saveWinery}
+                <WineryContainer 
+                  saveWinery={this.saveWinery}
+                  username={this.state.username}
                 />}
             />
            </React.Fragment>

@@ -132,6 +132,7 @@ class WineryContainer extends Component {
       <div className="winery-container">
         <div className="filter">
           <FilterContainer
+            username={this.props.username}
             renderRegions={this.renderRegions}
             renderGrapes={this.renderGrapes}
             handleSearchInputChange={this.handleSearchInputChange}
