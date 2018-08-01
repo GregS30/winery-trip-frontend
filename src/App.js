@@ -100,8 +100,6 @@ class App extends Component {
     console.log(this.state.myWineries)
     return (
       <div className="App">
-
-        <Router>
           <Fragment>
             <div className="header-nav">
               <Header />
@@ -129,9 +127,7 @@ class App extends Component {
                   username={this.state.username}
                 />}
             />
-
           </Fragment>
-        </Router>
         <Footer />
       </div>
     );
