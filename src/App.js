@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 //CSS
 import './App.css';
@@ -28,20 +28,19 @@ class App extends Component {
 
   // AUTO-LOGIN functionality -if token is present in LocalStorage
   componentDidMount(){
-    Adapter.getCurrentUser()
-     .then(json => {
-       console.log(json);
-       this.setState({
-           id: json.id,
-           username: json.username,
-           loggedIn: true,
-       })
-     })
-     .catch(err => {
-         // console.warn(err);
-       Adapter.deleteToken();
-     })
-   }
+      Adapter.getCurrentUser()
+      .then(json => {
+        this.setState({
+            id: json.id,
+            username: json.username,
+            loggedIn: true,
+        })
+      })
+      .catch(err => {
+          // console.warn(err);
+        Adapter.deleteToken();
+      })
+  }
 
   //PROPS FUNCTIONALITY: NavBar handlers
   setUser = (username, id) => {
@@ -80,7 +79,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Router>
-           <React.Fragment>
+           <Fragment>
             <Navbar
               handleLogout={this.handleLogout}
               loggedIn={this.state.loggedIn}
@@ -92,7 +91,7 @@ class App extends Component {
                 <WineryContainer saveWinery={this.saveWinery}
                 />}
             />
-           </React.Fragment>
+           </Fragment>
         </Router>
         <Footer />
       </div>

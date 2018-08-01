@@ -15,22 +15,22 @@ class Adapter {
   }
 
   static getCurrentUser() {
-    return fetch(`${API}/current_user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": this.getToken()
-      }
-    })
-    .then(resp =>
-      {
-        if (resp.ok) {
-          return resp.json()
+      return fetch(`${API}/current_user`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": this.getToken()
         }
-        else {
-          console.log("error getCurrentUser()")
-        }
-    });
+      })
+      .then(resp =>
+        {
+          if (resp.ok) {
+            return resp.json()
+          }
+          else {
+            console.log("error getCurrentUser()")
+          }
+      });
   }
 
 

@@ -14,16 +14,16 @@ class FilterContainer extends Component {
         <h3>Find your winery</h3>
         <div className="filter-container">
           <WinerySearch winerySearchInput={this.props.winerySearchInput} handleSearchInputChange={this.props.handleSearchInputChange}/>
-          <GrapeFilter 
-            renderGrapes={this.props.renderGrapes}
-            handleGrapeSelect={this.props.handleGrapeSelect}
-            selectedGrape={this.props.selectedGrape}
-          />
           <RegionFilter 
             renderRegions={this.props.renderRegions}
             handleRegionSelect={this.props.handleRegionSelect}
             selectedRegion={this.props.selectedRegion}
           />
+          <GrapeFilter 
+          renderGrapes={this.props.renderGrapes}
+          handleGrapeSelect={this.props.handleGrapeSelect}
+          selectedGrape={this.props.selectedGrape}
+        />
         </div>
       </Fragment>
     )

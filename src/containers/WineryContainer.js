@@ -20,7 +20,7 @@ class WineryContainer extends Component {
 
       winerySearchInput: "",
       selectedRegion: "Napa Valley",
-      selectedGrape: "Merlot",
+      selectedGrape: "",
 
       winery: null,
     }
@@ -43,6 +43,7 @@ class WineryContainer extends Component {
 
   fetchRegions = () => {
     AdapterAPI.getRegions()
+    .then(regions => regions.sort((r1, r2) => {return r1.name.localeCompare(r2.name)}))
     .then(regions => this.setState({
       regions,
     }))
@@ -50,6 +51,7 @@ class WineryContainer extends Component {
 
   fetchGrapes = () => {
     AdapterAPI.getGrapes()
+    .then(grapes => grapes.sort((g1, g2) => {return g1.name.localeCompare(g2.name)}))
     .then(grapes => this.setState({
       grapes,
     }))

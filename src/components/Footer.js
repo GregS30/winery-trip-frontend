@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-logo">
-        <img src='/assets/copy-rights-symbol.png'/>
+        <img src='/assets/copy-rights-symbol.png' alt="copy rights symbol"/>
       </div>
       <div className="footer-text">
         <h1>Greg's Wineries Inc. © 2018 Copyright Text</h1>

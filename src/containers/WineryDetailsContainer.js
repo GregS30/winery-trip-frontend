@@ -78,7 +78,7 @@ class WineryDetailsContainer extends Component {
 
   render() {
     return (
-      <Fragment className="winery-details-container">
+      <div className="winery-details-container">
         <div className="winery-details-container">
           {this.renderHeader()}
           {this.renderAddress()}
@@ -91,7 +91,7 @@ class WineryDetailsContainer extends Component {
         <div>
           {this.renderWines()}
         </div>
-      </Fragment>
+      </div>
 
     )
   }
