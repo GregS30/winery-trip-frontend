@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 
 //COMPONENTS
@@ -15,7 +15,7 @@ const Navbar = (props) => {
             <NavLink to="/mywineries" exact>My Wineries</NavLink><br/>
             <button onClick={props.handleLogout}>Log Out</button>
           </div>
-        : <Login 
+        : <Login
             setUser={props.setUser}
             getMyWineries ={props.getMyWineries}
           />

@@ -38,8 +38,8 @@ class WinesList extends Component {
         return this.state.wines.map(wine => {
             return (
                 <tr key={wine.id}>
-                    <td>{wine.name}</td>
-                    <td>{wine.wine_type}</td>
+                    <td>{wine.wine_type}</td>                      <td>{wine.name}</td>
+                    <td>{wine.vintage}</td>
                 </tr>
             )
         })
@@ -54,8 +54,9 @@ class WinesList extends Component {
                 <table>
                     <thead>
                     <tr>
-                        <th>Wine</th>
-                        <th>Type</th>
+                      <th>Type</th>
+                      <th>Wine</th>
+                      <th>Vintage</th>
                     </tr>
                   </thead>
                   <tbody>

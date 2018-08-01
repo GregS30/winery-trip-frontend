@@ -20,7 +20,7 @@ class App extends Component {
     super()
     this.state = {
       username: "",
-      id: "",
+      userId: "",
       loggedIn: false,
       myWineries: [],
       winery: null,
@@ -34,7 +34,7 @@ class App extends Component {
       .then(json => {
         console.log(json);
         this.setState({
-            id: json.id,
+            userId: json.id,
             username: json.username,
             loggedIn: true,
         }, this.getMyWineries)
@@ -47,7 +47,7 @@ class App extends Component {
   }
 
   getMyWineries = () => {
-    Adapter.getMyWineries(this.state.id)
+    Adapter.getMyWineries(this.state.userId)
     .then(json => {
       console.log(json);
       this.setState({
@@ -60,13 +60,11 @@ class App extends Component {
     })
   }
 
-
-
   //PROPS FUNCTIONALITY: NavBar handlers
   setUser = (username, id) => {
     this.setState({
       username: username,
-      id: id,
+      userId: id,
       loggedIn: true,
       });
   }
@@ -82,7 +80,7 @@ class App extends Component {
 
   //PROPS FUNCTIONALITY: WineryContainer handlers
   saveWinery = (winery) => {
-    fetch(`${API}/users/${this.state.id}/wineries`, {
+    fetch(`${API}/users/${this.state.userId}/wineries`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

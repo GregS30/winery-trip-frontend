@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class WineryList extends Component {
 
   renderWineries = () => {
-    if (this.props.wineries) {
     return this.props.wineries.map(winery => {
       return (
         <p
@@ -12,10 +11,6 @@ class WineryList extends Component {
         >{winery.name}</p>
       )
     })
-    } 
-    else {
-      return null
-    }
   }
 
   render() {
