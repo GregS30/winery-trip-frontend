@@ -2,6 +2,10 @@ body {
   font-family: 'Poiret One', cursive;
 }
 
+h3 {
+  margin: 0px;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -37,7 +41,7 @@ body {
   flex-direction: row;
   justify-content: space-around;
   background-color: white;
-  padding: 10px;
+  padding: 0px;
 }
 
 .filter {
@@ -162,10 +166,4 @@ input {
   height: 500px;
   background-image: url("/assets/frontimage.jpg");
   background-repeat: no-repeat;
-}
-
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
