@@ -7,6 +7,7 @@ const GrapeFilter = (props) => {
       <label htmlFor="grape-filter">Varietal: </label>
       <select 
         name="grape-filter"
+        value={props.selectedGrape}
         onChange={props.handleGrapeSelect}
       >
         {props.renderGrapes()}

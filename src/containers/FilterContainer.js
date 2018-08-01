@@ -17,10 +17,12 @@ class FilterContainer extends Component {
           <GrapeFilter 
             renderGrapes={this.props.renderGrapes}
             handleGrapeSelect={this.props.handleGrapeSelect}
+            selectedGrape={this.props.selectedGrape}
           />
           <RegionFilter 
             renderRegions={this.props.renderRegions}
             handleRegionSelect={this.props.handleRegionSelect}
+            selectedRegion={this.props.selectedRegion}
           />
         </div>
       </Fragment>

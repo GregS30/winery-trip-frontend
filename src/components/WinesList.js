@@ -49,7 +49,7 @@ class WinesList extends Component {
         console.log(this.state.wines)
         return (
             <Fragment>
-                <h3>Our Bodega</h3>
+                <h3>Our Cellar</h3>
                 <table>
                     <tr>
                         <th>Wine</th>

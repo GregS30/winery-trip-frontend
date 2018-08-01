@@ -134,10 +134,12 @@ class WineryContainer extends Component {
           <FilterContainer
             renderRegions={this.renderRegions}
             renderGrapes={this.renderGrapes}
-            winerySearchInput={this.state.winerySearchInput}
             handleSearchInputChange={this.handleSearchInputChange}
+            winerySearchInput={this.state.winerySearchInput}
             handleGrapeSelect={this.handleGrapeSelect}
             handleRegionSelect={this.handleRegionSelect}
+            selectedGrape={this.state.selectedGrape}
+            selectedRegion={this.state.selectedRegion}
           />
         </div>
         <div className="list-and-details">
