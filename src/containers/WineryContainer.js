@@ -8,6 +8,7 @@ import WineryList from '../components/WineryList.js';
 import WineryDetailsContainer from './WineryDetailsContainer';
 import FilterContainer from './FilterContainer';
 
+
 class WineryContainer extends Component {
   constructor(props) {
     super(props)
@@ -31,7 +32,7 @@ class WineryContainer extends Component {
     this.fetchRegions();
     this.fetchGrapes();
   }
-  //Data
+  //Data for initial setup
   fetchWineries = () => {
     AdapterAPI.getWineries(this.state.selectedRegion,this.state.selectedGrape)
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))

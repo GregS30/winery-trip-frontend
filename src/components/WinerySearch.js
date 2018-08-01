@@ -13,7 +13,6 @@ const WinerySearch = (props) => {
         />
     </div>
   )
-  
 }
 
 export default WinerySearch;

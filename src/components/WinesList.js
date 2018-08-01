@@ -8,6 +8,7 @@ class WinesList extends Component {
         wines: null,
     }
 
+    //Uploads wine list when mounting
     componentDidMount() {
         if (this.props.winery) {
             AdapterAPI.getWines(this.props.winery)
@@ -17,19 +18,22 @@ class WinesList extends Component {
         } else {
             null
         }
-        }
+    }
 
+    //Re-uploads wine list when changing winery (props)
     componentDidUpdate(prevProps, prevState) {
-    if (this.props.winery !== prevProps.winery) {
-        AdapterAPI.getWines(this.props.winery)
-        .then(json => this.setState({
-            wines: json,
-        }))
-    } else {
-        null
-    }
+        if (this.props.winery !== prevProps.winery) {
+            AdapterAPI.getWines(this.props.winery)
+            .then(json => this.setState({
+                wines: json,
+            }))
+        } 
+        else {
+            null
+        }
     }
 
+    //builds wine list. Could be a subcomponent
     buildWinesList = () => {
         return this.state.wines.map(wine => {
             return (

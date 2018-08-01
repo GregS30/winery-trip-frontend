@@ -10,10 +10,10 @@ class WineryList extends Component {
           key={winery.id}
           onClick={(e) => this.props.handleClick(e, winery)}
         >{winery.name}</p>
-
       )
     })
-    } else {
+    } 
+    else {
       return null
     }
   }

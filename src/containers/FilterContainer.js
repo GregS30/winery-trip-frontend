@@ -5,7 +5,9 @@ import WinerySearch from '../components/WinerySearch.js';
 import GrapeFilter from '../components/GrapeFilter.js';
 import RegionFilter from '../components/RegionFilter.js';
 
+
 class FilterContainer extends Component {
+
   render() {
     return (
       <Fragment>
@@ -22,7 +24,6 @@ class FilterContainer extends Component {
           />
         </div>
       </Fragment>
-
     )
   }
 }

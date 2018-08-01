@@ -9,7 +9,8 @@ const GrapeFilter = (props) => {
         name="grape-filter"
         onChange={props.handleGrapeSelect}
       >
-      {props.renderGrapes()}</select>
+        {props.renderGrapes()}
+      </select>
     </div>
   )
 

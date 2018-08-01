@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
-import Adapter from './adapters/Adapter'
 
 //CSS
 import './App.css';
+
+//ADAPTERS
+import Adapter from './adapters/Adapter'
 
 //COMPONENTS
 import Header from './components/Header.js';
@@ -24,6 +26,7 @@ class App extends Component {
     }
   }
 
+  // AUTO-LOGIN functionality -if token is present in LocalStorage
   componentDidMount(){
     Adapter.getCurrentUser()
      .then(json => {
@@ -40,6 +43,7 @@ class App extends Component {
      })
    }
 
+  //PROPS FUNCTIONALITY: NavBar handlers
   setUser = (username, id) => {
     this.setState({
       username: username,
@@ -57,7 +61,8 @@ class App extends Component {
       }
     );
   }
-
+  
+  //PROPS FUNCTIONALITY: WineryContainer handlers
   saveWinery = (winery) => {
     console.log("winery=", winery)
     let newTrip = [...this.state.trip, winery]

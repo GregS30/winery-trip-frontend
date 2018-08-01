@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+//ADAPTERS
 import { API } from '../adapters/Adapter'
 import Adapter from './../adapters/Adapter'
 
@@ -9,6 +11,7 @@ class Login extends Component {
     password: "",
   }
 
+  //PROPS FUNCTIONALITY: Button handlers
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -26,7 +29,6 @@ class Login extends Component {
     })
     .then(resp => resp.json())
     .then(json => {
-      console.log("handleSubmit", json)
       Adapter.setToken(json.token);
       this.props.setUser(json.username, json.id);
     })

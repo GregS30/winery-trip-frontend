@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+
+//COMPONENTS
 import Login from './Login.js'
 
 const Navbar = (props) => {
