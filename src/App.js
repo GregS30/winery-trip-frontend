@@ -49,6 +49,7 @@ class App extends Component {
   }
 
   handleLogout = (event) => {
+    Adapter.deleteToken();
     this.setState({
       username: "",
       password: "",
@@ -78,22 +79,17 @@ class App extends Component {
             <Navbar
               handleLogout={this.handleLogout}
               loggedIn={this.state.loggedIn}
-              setUser={this.setUser} />
+              setUser={this.setUser}
+            />
             <Route
               path="/"
               render={() =>
                 <WineryContainer saveWinery={this.saveWinery}
                 />}
-              />
-              <Route
-              path="/home"
-              render={() =>
-                <WineryContainer saveWinery={this.saveWinery}
-                />}
-              />
+            />
            </React.Fragment>
-         </Router>
-         <Footer />
+        </Router>
+        <Footer />
       </div>
     );
   }
