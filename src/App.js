@@ -12,7 +12,7 @@ import Header from './components/Header.js';
 import Navbar from './components/Navbar.js';
 import WineryContainer from './containers/WineryContainer.js';
 import Footer from './components/Footer.js';
-
+import TripContainer from './containers/TripContainer.js';
 
 class App extends Component {
   constructor () {
@@ -63,7 +63,7 @@ class App extends Component {
       }
     );
   }
-  
+
   //PROPS FUNCTIONALITY: WineryContainer handlers
   saveWinery = (winery) => {
     console.log("winery=", winery)
@@ -80,7 +80,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          
+
         <Router>
           <Fragment>
             <div className="header-nav">
@@ -91,14 +91,21 @@ class App extends Component {
                     setUser={this.setUser}
               />
             </div>
-            <Route  
-              path="/"
+            <Route
+              exact path="/"
               render={() =>
-                <WineryContainer 
+                <WineryContainer
                   saveWinery={this.saveWinery}
                   username={this.state.username}
                 />}
             />
+            <Route
+              exact path="/mywineries"
+              render={() =>
+                <TripContainer
+                />}
+            />
+
           </Fragment>
         </Router>
         <Footer />

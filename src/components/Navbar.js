@@ -11,8 +11,8 @@ const Navbar = (props) => {
       {props.loggedIn
         ?
           <div>
-            <NavLink to="/home" exact>Home</NavLink><br/>
-            <NavLink to="/mytrips" exact>My Trips</NavLink><br/>
+            <NavLink to="/" exact>Home</NavLink><br/>
+            <NavLink to="/mywineries" exact>My Wineries</NavLink><br/>
             <button onClick={props.handleLogout}>Log Out</button>
           </div>
         : <Login setUser={props.setUser} />
