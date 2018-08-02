@@ -8,7 +8,6 @@ import WineryList from '../components/WineryList.js';
 import WineryDetailsContainer from './WineryDetailsContainer';
 import FilterContainer from './FilterContainer';
 
-
 class WineryContainer extends Component {
   constructor(props) {
     super(props)
@@ -19,7 +18,7 @@ class WineryContainer extends Component {
 
       displayedWinery: null,
 
-      winerySearchInput: "",
+      nameSearch: "",
       selectedRegion: "Napa Valley",
       selectedGrape: "Merlot",
 
@@ -29,29 +28,29 @@ class WineryContainer extends Component {
 
   //INITIAL SETUP
   componentDidMount() {
-    this.fetchWineries();
-    this.fetchRegions();
-    this.fetchGrapes();
+    this.getWineries();
+    this.getRegions();
+    this.getGrapes();
   }
   //Data for initial setup
-  fetchWineries = () => {
-    AdapterAPI.getWineries(this.state.selectedRegion,this.state.selectedGrape)
+  getWineries = () => {
+    AdapterAPI.fetchWineries(this.state.selectedRegion,this.state.selectedGrape)
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(wineries => this.setState({
       wineries,
-    }))
+    }, (wineries) => console.log("wineries=", this.state.wineries)))
   }
 
-  fetchRegions = () => {
-    AdapterAPI.getRegions()
+  getRegions = () => {
+    AdapterAPI.fetchRegions()
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(regions => this.setState({
       regions,
     }))
   }
 
-  fetchGrapes = () => {
-    AdapterAPI.getGrapes()
+  getGrapes = () => {
+    AdapterAPI.fetchGrapes()
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(grapes => this.setState({
       grapes,
@@ -76,7 +75,7 @@ class WineryContainer extends Component {
   }
 
   //PROPS FUNCTIONALITY: NavBar handlers
-  handleSearchInputChange = (event) => {
+  handleNameSearch = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     })
@@ -85,18 +84,18 @@ class WineryContainer extends Component {
   handleGrapeSelect = (event) => {
     this.setState({
       selectedGrape: event.target.value,
-    }, () => this.fetchWineries())
+    }, () => this.getWineries())
   }
 
   handleRegionSelect = (event) => {
     this.setState({
       selectedRegion: event.target.value,
-    }, () => this.fetchWineries())
+    }, () => this.getWineries())
   }
 
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
-    AdapterAPI.getWineryData(selectedWinery.name)
+    AdapterAPI.fetchWineryDetails(selectedWinery.name)
     .then(json => {
       json["message"]
         ? this.setState(
@@ -110,10 +109,10 @@ class WineryContainer extends Component {
     })
   }
 
-  filterWineries = () => {
+  filterWineriesByName = () => {
     if (this.state.wineries) {
       const filteredWineries = this.state.wineries.filter(winery => {
-        return winery.name.toLowerCase().includes(this.state.winerySearchInput.toLowerCase())
+        return winery.name.toLowerCase().includes(this.state.nameSearch.toLowerCase())
       })
       return filteredWineries
     }
@@ -130,8 +129,8 @@ class WineryContainer extends Component {
             username={this.props.username}
             renderRegions={this.renderRegions}
             renderGrapes={this.renderGrapes}
-            handleSearchInputChange={this.handleSearchInputChange}
-            winerySearchInput={this.state.winerySearchInput}
+            handleNameSearch={this.handleNameSearch}
+            nameSearch={this.state.nameSearch}
             handleGrapeSelect={this.handleGrapeSelect}
             handleRegionSelect={this.handleRegionSelect}
             selectedGrape={this.state.selectedGrape}
@@ -140,7 +139,7 @@ class WineryContainer extends Component {
         </div>
         <div className="list-and-details">
           <WineryList
-            wineries={this.filterWineries()}
+            wineries={this.filterWineriesByName()}
             handleClick={this.handleClick}
           />
           <WineryDetailsContainer

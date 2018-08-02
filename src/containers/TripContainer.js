@@ -19,7 +19,7 @@ class TripContainer extends Component {
 
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
-    AdapterAPI.getWineryData(selectedWinery.name)
+    AdapterAPI.fetchWineryDetails(selectedWinery.name)
     .then(json => {
       json["message"]
         ? this.setState(

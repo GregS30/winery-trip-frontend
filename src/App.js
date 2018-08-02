@@ -20,10 +20,9 @@ class App extends Component {
     super()
     this.state = {
       username: "",
-      userId: "",
+      userId: null,
       loggedIn: false,
       myWineries: [],
-      winery: null,
     }
   }
 
@@ -47,7 +46,7 @@ class App extends Component {
   }
 
   getMyWineries = () => {
-    Adapter.getMyWineries(this.state.userId)
+    Adapter.fetchWineries(this.state.userId)
     .then(json => {
       console.log(json);
       this.setState({
@@ -61,21 +60,23 @@ class App extends Component {
   }
 
   //PROPS FUNCTIONALITY: NavBar handlers
-  setUser = (username, id) => {
+  setUser = (username, id, loggedIn) => {
     this.setState({
       username: username,
       userId: id,
-      loggedIn: true,
-      });
+      loggedIn: loggedIn,
+    });
   }
 
-  handleLogout = (event) => {
+  handleLogout = () => {
     Adapter.deleteToken();
-    this.setState({
-      username: "",
-      password: "",
-      loggedIn: false,
-      }, () => this.props.history.push('/'));
+    this.setUser("", null, false);
+    this.props.history.push('/');
+    // this.setState({
+    //   username: "",
+    //   userId: null,
+    //   loggedIn: false,
+    // }, () => this.props.history.push('/'));
   }
 
   //PROPS FUNCTIONALITY: WineryContainer handlers

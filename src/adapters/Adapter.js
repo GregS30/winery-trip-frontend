@@ -33,7 +33,7 @@ class Adapter {
     });
   }
 
-  static getMyWineries(id) {
+  static fetchWineries(id) {
     return fetch(`${API}/users/${id}/wineries`, {
       method: "GET",
       headers: {
