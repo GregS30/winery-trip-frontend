@@ -8,9 +8,10 @@ import AdapterUser from './../adapters/AdapterUser';
 // ACTIONS
 import { login } from '../actions';
 
-function mapDispatchToProps(dispatch) {
+// redux props
+const mapDispatchToProps = dispatch => {
   return {
-    login: (username, userId, loggedIn) => dispatch(login(username, userId, loggedIn))
+    login: (username, userId) => dispatch(login(username, userId))   
   }
 }
 
@@ -33,7 +34,7 @@ class Login extends Component {
     AdapterUser.login(event.target.value, this.state)
       .then(json => {
         AdapterUser.setToken(json.token);
-        this.props.login(json.username, json.id, true);
+        this.props.login(json.username, json.id);
         this.props.getMyWineries();
       })
    }

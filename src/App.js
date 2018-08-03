@@ -16,12 +16,24 @@ import WineryContainer from './containers/WineryContainer.js';
 import Footer from './components/Footer.js';
 import TripContainer from './containers/TripContainer.js';
 
-function mapStateToProps(state) {
+// ACTIONS
+import { login, logout, myWineries } from './actions';
+
+// redux props
+const mapStateToProps = state => {
   return {
     username: state.username,
     userId: state.userId,
     loggedIn: state.loggedIn,
     myWineries: state.myWineries,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (username, userId) => dispatch(login(username, userId)),
+    logout: () => dispatch(logout()),
+    myWineries: () => dispatch(myWineries(myWineries))
   }
 }
 
@@ -33,11 +45,8 @@ class App extends Component {
       AdapterUser.getCurrentUser()
       .then(json => {
 //        console.log(json);
-        this.setState({
-            userId: json.id,
-            username: json.username,
-            loggedIn: true,
-        }, this.getMyWineries)
+        this.props.login(json.username, json.id);
+        this.getMyWineries();
       })
       .catch(err => {
           // console.warn(err);
@@ -48,41 +57,22 @@ class App extends Component {
 
   getMyWineries = () => {
     AdapterWine.fetchWineriesForUser(this.props.userId)
-    .then(json => {
-//      console.log(json);
-      this.setState({
-        myWineries: json,
-      })
-    })
+    .then(this.props.myWineries)
     .catch(err => {
         // console.warn(err);
       AdapterUser.deleteToken();
     });
   }
 
-  //PROPS FUNCTIONALITY: NavBar handlers
-  setUser = (username, id, loggedIn) => {
-    this.setState({
-      username: username,
-      userId: id,
-      loggedIn: loggedIn,
-    });
-  }
-
   handleLogout = () => {
     AdapterUser.deleteToken();
-    this.setState({
-      username: "",
-      userId: null,
-      loggedIn: false,
-    }, () => this.props.history.push('/'));
+    this.props.logout();
+    this.props.history.push('/');
   }
 
   saveWinery = (winery) => {
     AdapterWine.postWinery(winery, this.props.userId)
-    .then(json => this.setState({
-        myWineries: json,
-    }))
+    .then(this.props.myWineries)
   }
 
   render() {
@@ -125,4 +115,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, null)(withRouter(App));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

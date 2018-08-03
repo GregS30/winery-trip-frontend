@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 
 //ADAPTERS
 import AdapterWine from './../adapters/AdapterWine'
@@ -8,22 +10,43 @@ import WineryList from '../components/WineryList.js';
 import WineryDetailsContainer from './WineryDetailsContainer';
 import FilterContainer from './FilterContainer';
 
+
+// ACTIONS
+import { allWineries, wineryDetails, selectedGrape, selectedRegion, nameSearch, selectedWinery } from '../actions';
+
+// redux props
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    userId: state.userId,
+    loggedIn: state.loggedIn,
+    myWineries: state.myWineries,
+    wineries: state.wineries,
+    nameSearch: state.nameSearch,
+    wineryDetails: state.wineryDetails,
+    selectedGrape: state.selectedGrape,
+    selectedRegion: state.selectedRegion,
+    selectedWinery: state.selectedWinery,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    allWineries: (allWineries) => dispatch(allWineries(allWineries)),
+    nameSearch: (nameSearch) => dispatch(nameSearch(nameSearch)),
+    selectedGrape: (selectedGrape) => dispatch(selectedGrape(selectedGrape)),
+    selectedRegion: (selectedRegion) => dispatch(selectedRegion(selectedRegion)),
+    wineryDetails: (wineryDetails) => dispatch(wineryDetails(wineryDetails)),
+    selectedWinery: (selectedWinery) => dispatch(selectedWinery(selectedWinery)),
+  }
+}
+
 class WineryContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      wineries: [],
-      regions: [],
-      grapes: [],
+  state = {
+    regions: [],
+    grapes: [],
 
-      displayedWinery: null,
-
-      nameSearch: "",
-      selectedRegion: "Napa Valley",
-      selectedGrape: "Merlot",
-
-      winery: null,
-    }
+    winery: null,
   }
 
   //INITIAL SETUP
@@ -34,16 +57,14 @@ class WineryContainer extends Component {
   }
   //Data for initial setup
   getWineries = () => {
-    AdapterWine.fetchWineries(this.state.selectedRegion, this.state.selectedGrape)
-    .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
-    .then(wineries => this.setState({
-      wineries,
-    }))
+    AdapterWine.fetchWineries(this.props.selectedRegion, this.props.selectedGrape)
+    .then(resp => resp.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
+    .then(this.props.allWineries)
   }
 
   getRegions = () => {
     AdapterWine.fetchRegions()
-    .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
+    .then(resp => resp.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(regions => this.setState({
       regions,
     }))
@@ -51,7 +72,7 @@ class WineryContainer extends Component {
 
   getGrapes = () => {
     AdapterWine.fetchGrapes()
-    .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
+    .then(resp => resp.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(grapes => this.setState({
       grapes,
     }))
@@ -76,43 +97,36 @@ class WineryContainer extends Component {
 
   //PROPS FUNCTIONALITY: NavBar handlers
   handleNameSearch = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    })
+    this.props.nameSearch(event.target.value)
   }
 
   handleGrapeSelect = (event) => {
-    this.setState({
-      selectedGrape: event.target.value,
-    }, () => this.getWineries())
+    this.props.selectedGrape(event.target.value)
   }
 
   handleRegionSelect = (event) => {
-    this.setState({
-      selectedRegion: event.target.value,
-    }, () => this.getWineries())
+    this.props.selectedRegion(event.target.value)
   }
 
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
     AdapterWine.fetchWineryDetails(selectedWinery.name)
     .then(json => {
-      json["message"]
-        ? this.setState(
-          {displayedWinery: null,
-          winery: selectedWinery,
-        })
-        : this.setState(
-        {displayedWinery: json,
-          winery: selectedWinery,
-        });
+      if (json["message"]) {
+        this.props.wineryDetails(null)
+        this.props.selectedWinery(selectedWinery)
+      }
+      else {
+        this.props.wineryDetails(json)
+        this.props.selectedWinery(selectedWinery)
+      }
     })
   }
 
   filterWineriesByName = () => {
-    if (this.state.wineries) {
-      const filteredWineries = this.state.wineries.filter(winery => {
-        return winery.name.toLowerCase().includes(this.state.nameSearch.toLowerCase())
+    if (this.props.wineries) {
+      const filteredWineries = this.props.wineries.filter(winery => {
+        return winery.name.toLowerCase().includes(this.props.nameSearch.toLowerCase())
       })
       return filteredWineries
     }
@@ -156,4 +170,4 @@ class WineryContainer extends Component {
   }
 }
 
-export default WineryContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(WineryContainer);
