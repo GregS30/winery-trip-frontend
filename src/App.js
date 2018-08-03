@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, withRouter} from 'react-router-dom';
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 //CSS
 import './App.css';
 
 //ADAPTERS
-import AdapterUser from './adapters/AdapterUser'
-import AdapterWine from './adapters/AdapterWine'
+import AdapterUser from './adapters/AdapterUser';
+import AdapterWine from './adapters/AdapterWine';
 
 //COMPONENTS
 import Header from './components/Header.js';
@@ -15,23 +16,23 @@ import WineryContainer from './containers/WineryContainer.js';
 import Footer from './components/Footer.js';
 import TripContainer from './containers/TripContainer.js';
 
-class App extends Component {
-  constructor () {
-    super()
-    this.state = {
-      username: "",
-      userId: null,
-      loggedIn: false,
-      myWineries: [],
-    }
+function mapStateToProps(state) {
+  return {
+    username: state.username,
+    userId: state.userId,
+    loggedIn: state.loggedIn,
+    myWineries: state.myWineries,
   }
+}
+
+class App extends Component {
 
   // AUTO-LOGIN functionality -if token is present in LocalStorage
   componentDidMount(){
     if (AdapterUser.getToken()) {
       AdapterUser.getCurrentUser()
       .then(json => {
-        console.log(json);
+//        console.log(json);
         this.setState({
             userId: json.id,
             username: json.username,
@@ -46,9 +47,9 @@ class App extends Component {
   }
 
   getMyWineries = () => {
-    AdapterWine.fetchWineriesForUser(this.state.userId)
+    AdapterWine.fetchWineriesForUser(this.props.userId)
     .then(json => {
-      console.log(json);
+//      console.log(json);
       this.setState({
         myWineries: json,
       })
@@ -56,7 +57,7 @@ class App extends Component {
     .catch(err => {
         // console.warn(err);
       AdapterUser.deleteToken();
-    }, () => console.log('getMyWineries', this.state))
+    });
   }
 
   //PROPS FUNCTIONALITY: NavBar handlers
@@ -78,14 +79,14 @@ class App extends Component {
   }
 
   saveWinery = (winery) => {
-    AdapterWine.postWinery(winery, this.state.userId)
+    AdapterWine.postWinery(winery, this.props.userId)
     .then(json => this.setState({
         myWineries: json,
     }))
   }
 
   render() {
-    console.log(this.state.myWineries)
+//    console.log(this.props.myWineries)
     return (
       <div className="App">
           <Fragment>
@@ -93,7 +94,7 @@ class App extends Component {
               <Header />
               <Navbar
                 handleLogout={this.handleLogout}
-                loggedIn={this.state.loggedIn}
+                loggedIn={this.props.loggedIn}
                 setUser={this.setUser}
                 getMyWineries ={this.getMyWineries}
               />
@@ -102,9 +103,9 @@ class App extends Component {
               exact path="/"
               render={() =>
                 <WineryContainer
-                  username={this.state.username}
-                  myWineries={this.state.myWineries}
-                  userId={this.state.userId}
+                  username={this.props.username}
+                  myWineries={this.props.myWineries}
+                  userId={this.props.userId}
                   saveWinery={this.saveWinery}
                 />}
             />
@@ -112,8 +113,8 @@ class App extends Component {
               exact path="/mywineries"
               render={() =>
                 <TripContainer
-                  myWineries={this.state.myWineries}
-                  username={this.state.username}
+                  myWineries={this.props.myWineries}
+                  username={this.props.username}
                   saveWinery={this.saveWinery}
                 />}
             />
@@ -124,4 +125,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default connect(mapStateToProps, null)(withRouter(App));

@@ -38,7 +38,7 @@ class WineryContainer extends Component {
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(wineries => this.setState({
       wineries,
-    }, (wineries) => console.log("wineries=", this.state.wineries)))
+    }))
   }
 
   getRegions = () => {

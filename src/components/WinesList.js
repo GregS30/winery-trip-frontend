@@ -47,7 +47,7 @@ class WinesList extends Component {
   }
 
   render() {
-    console.log(this.state.wines)
+//    console.log(this.state.wines)
     return (
       <Fragment>
         <br/>

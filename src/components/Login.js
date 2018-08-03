@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-//ADAPTERS
-import { API } from '../adapters/AdapterWine'
-import AdapterUser from './../adapters/AdapterUser'
+// ADAPTERS
+import { API } from '../adapters/AdapterWine';
+import AdapterUser from './../adapters/AdapterUser';
+
+// ACTIONS
+import { login } from '../actions';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    login: (username, userId, loggedIn) => dispatch(login(username, userId, loggedIn))
+  }
+}
 
 class Login extends Component {
+  // keeping local state
   state = {
     username: "",
     password: "",
-  }
+  };
 
   //PROPS FUNCTIONALITY: Button handlers
   handleChange = (event) => {
@@ -19,19 +30,12 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    fetch(`${API}/${event.target.value}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.state)
-    })
-    .then(resp => resp.json())
-    .then(json => {
-      AdapterUser.setToken(json.token);
-      this.props.setUser(json.username, json.id, true);
-      this.props.getMyWineries();
-    })
+    AdapterUser.login(event.target.value, this.state)
+      .then(json => {
+        AdapterUser.setToken(json.token);
+        this.props.login(json.username, json.id, true);
+        this.props.getMyWineries();
+      })
    }
 
   render() {
@@ -62,4 +66,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
