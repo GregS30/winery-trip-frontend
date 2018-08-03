@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 //ADAPTERS
-import AdapterAPI from './../adapters/AdapterAPI'
+import AdapterWine from './../adapters/AdapterWine'
 
 class WinesList extends Component {
   state = {
@@ -11,7 +11,7 @@ class WinesList extends Component {
   //Uploads wine list when mounting
   componentDidMount() {
     if (this.props.winery) {
-      AdapterAPI.fetchWines(this.props.winery)
+      AdapterWine.fetchWines(this.props.winery)
       .then(json => this.setState({
           wines: json,
       }))
@@ -23,7 +23,7 @@ class WinesList extends Component {
   //Re-uploads wine list when changing winery (props)
   componentDidUpdate(prevProps, prevState) {
     if (this.props.winery !== prevProps.winery) {
-      AdapterAPI.fetchWines(this.props.winery)
+      AdapterWine.fetchWines(this.props.winery)
       .then(json => this.setState({
         wines: json,
       }))

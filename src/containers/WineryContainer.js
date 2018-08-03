@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //ADAPTERS
-import AdapterAPI from './../adapters/AdapterAPI'
+import AdapterWine from './../adapters/AdapterWine'
 
 //COMPONENTS
 import WineryList from '../components/WineryList.js';
@@ -34,7 +34,7 @@ class WineryContainer extends Component {
   }
   //Data for initial setup
   getWineries = () => {
-    AdapterAPI.fetchWineries(this.state.selectedRegion,this.state.selectedGrape)
+    AdapterWine.fetchWineries(this.state.selectedRegion, this.state.selectedGrape)
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(wineries => this.setState({
       wineries,
@@ -42,7 +42,7 @@ class WineryContainer extends Component {
   }
 
   getRegions = () => {
-    AdapterAPI.fetchRegions()
+    AdapterWine.fetchRegions()
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(regions => this.setState({
       regions,
@@ -50,7 +50,7 @@ class WineryContainer extends Component {
   }
 
   getGrapes = () => {
-    AdapterAPI.fetchGrapes()
+    AdapterWine.fetchGrapes()
     .then(wineries => wineries.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
     .then(grapes => this.setState({
       grapes,
@@ -95,7 +95,7 @@ class WineryContainer extends Component {
 
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
-    AdapterAPI.fetchWineryDetails(selectedWinery.name)
+    AdapterWine.fetchWineryDetails(selectedWinery.name)
     .then(json => {
       json["message"]
         ? this.setState(
@@ -143,10 +143,11 @@ class WineryContainer extends Component {
             handleClick={this.handleClick}
           />
           <WineryDetailsContainer
-            saveWinery={this.props.saveWinery}
             displayedWinery={this.state.displayedWinery}
             winery={this.state.winery}
             myWineries={this.props.myWineries}
+            userId={this.props.userId}
+            saveWinery={this.props.saveWinery}
           />
 
         </div>

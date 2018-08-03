@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //ADAPTERS
-import AdapterAPI from './../adapters/AdapterAPI'
+import AdapterWine from './../adapters/AdapterWine'
 
 //COMPONENTS
 import WineryList from '../components/WineryList.js';
@@ -19,7 +19,7 @@ class TripContainer extends Component {
 
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
-    AdapterAPI.fetchWineryDetails(selectedWinery.name)
+    AdapterWine.fetchWineryDetails(selectedWinery.name)
     .then(json => {
       json["message"]
         ? this.setState(

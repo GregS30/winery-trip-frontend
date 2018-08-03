@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route, withRouter} from 'react-router-dom';
 import './App.css';
 
 //ADAPTERS
-import Adapter from './adapters/Adapter'
-import { API } from './adapters/Adapter'
+import AdapterUser from './adapters/AdapterUser'
+import AdapterWine from './adapters/AdapterWine'
 
 //COMPONENTS
 import Header from './components/Header.js';
@@ -28,8 +28,8 @@ class App extends Component {
 
   // AUTO-LOGIN functionality -if token is present in LocalStorage
   componentDidMount(){
-    if (Adapter.getToken()) {
-      Adapter.getCurrentUser()
+    if (AdapterUser.getToken()) {
+      AdapterUser.getCurrentUser()
       .then(json => {
         console.log(json);
         this.setState({
@@ -40,13 +40,13 @@ class App extends Component {
       })
       .catch(err => {
           // console.warn(err);
-        Adapter.deleteToken();
+        AdapterUser.deleteToken();
       })
     }
   }
 
   getMyWineries = () => {
-    Adapter.fetchWineries(this.state.userId)
+    AdapterWine.fetchWineriesForUser(this.state.userId)
     .then(json => {
       console.log(json);
       this.setState({
@@ -55,8 +55,8 @@ class App extends Component {
     })
     .catch(err => {
         // console.warn(err);
-      Adapter.deleteToken();
-    })
+      AdapterUser.deleteToken();
+    }, () => console.log('getMyWineries', this.state))
   }
 
   //PROPS FUNCTIONALITY: NavBar handlers
@@ -69,30 +69,19 @@ class App extends Component {
   }
 
   handleLogout = () => {
-    Adapter.deleteToken();
-    this.setUser("", null, false);
-    this.props.history.push('/');
-    // this.setState({
-    //   username: "",
-    //   userId: null,
-    //   loggedIn: false,
-    // }, () => this.props.history.push('/'));
+    AdapterUser.deleteToken();
+    this.setState({
+      username: "",
+      userId: null,
+      loggedIn: false,
+    }, () => this.props.history.push('/'));
   }
 
-  //PROPS FUNCTIONALITY: WineryContainer handlers
   saveWinery = (winery) => {
-    fetch(`${API}/users/${this.state.userId}/wineries`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({winery_id: winery.id})
-    })
-    .then(resp => resp.json())
+    AdapterWine.postWinery(winery, this.state.userId)
     .then(json => this.setState({
-          myWineries: json,
-        }, () => console.log(this.state))
-      )
+        myWineries: json,
+    }))
   }
 
   render() {
@@ -103,19 +92,20 @@ class App extends Component {
             <div className="header-nav">
               <Header />
               <Navbar
-                    handleLogout={this.handleLogout}
-                    loggedIn={this.state.loggedIn}
-                    setUser={this.setUser}
-                    getMyWineries ={this.getMyWineries}
+                handleLogout={this.handleLogout}
+                loggedIn={this.state.loggedIn}
+                setUser={this.setUser}
+                getMyWineries ={this.getMyWineries}
               />
             </div>
             <Route
               exact path="/"
               render={() =>
                 <WineryContainer
-                  saveWinery={this.saveWinery}
                   username={this.state.username}
                   myWineries={this.state.myWineries}
+                  userId={this.state.userId}
+                  saveWinery={this.saveWinery}
                 />}
             />
             <Route
@@ -124,6 +114,7 @@ class App extends Component {
                 <TripContainer
                   myWineries={this.state.myWineries}
                   username={this.state.username}
+                  saveWinery={this.saveWinery}
                 />}
             />
           </Fragment>

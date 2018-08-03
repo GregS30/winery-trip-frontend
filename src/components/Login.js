@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
 //ADAPTERS
-import { API } from '../adapters/Adapter'
-import Adapter from './../adapters/Adapter'
-
+import { API } from '../adapters/AdapterWine'
+import AdapterUser from './../adapters/AdapterUser'
 
 class Login extends Component {
   state = {
@@ -29,7 +28,7 @@ class Login extends Component {
     })
     .then(resp => resp.json())
     .then(json => {
-      Adapter.setToken(json.token);
+      AdapterUser.setToken(json.token);
       this.props.setUser(json.username, json.id, true);
       this.props.getMyWineries();
     })

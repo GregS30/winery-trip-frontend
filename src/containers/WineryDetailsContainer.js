@@ -2,9 +2,8 @@ import React, { Component, Fragment } from 'react';
 import UUID from 'uuid';
 
 //COMPONENTS
-import MapWithAMarker from '../components/MapWithAMarker'
-import WinesList from '../components/WinesList'
-
+import MapWithAMarker from '../components/MapWithAMarker';
+import WinesList from '../components/WinesList';
 
 class WineryDetailsContainer extends Component {
 
@@ -17,11 +16,13 @@ class WineryDetailsContainer extends Component {
           : this.props.winery["name"]
         }
         </h1>
-        <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to My Wineries</button>
+        <button onClick={() =>
+          this.props.saveWinery(this.props.winery)}>
+          Add to My Wineries</button>
       </Fragment>
     : <div className="empty-detail-container"> <h3>Find Your Winery </h3></div>
 
-
+  // this is not implemented yet!!!!!
   renderBtn = () => this.props.myWineries.includes (this.props.displayedWinery)
       ? <button onClick={() => this.props.saveWinery(this.props.winery)}>Add to My Wineries</button>
       : <button onClick={() => this.props.removeWinery(this.props.winery)}>Remove from My Wineries</button>
