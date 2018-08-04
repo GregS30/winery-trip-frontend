@@ -1,0 +1,10 @@
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const MY_WINERIES = 'MY_WINERIES';
+export const ALL_WINERIES = 'ALL_WINERIES';
+export const NAME_SEARCH = 'NAME_SEARCH';
+export const SELECTED_REGION = 'SELECTED_REGION';
+export const SELECTED_GRAPE = 'SELECTED_GRAPE';
+export const WINERY_DETAILS = 'WINERY_DETAILS';
+export const WINERY_WINES = 'WINERY_WINES';
+export const SELECTED_WINERY = 'SELECTED_WINERY';

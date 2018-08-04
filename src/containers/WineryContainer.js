@@ -45,8 +45,6 @@ class WineryContainer extends Component {
   state = {
     regions: [],
     grapes: [],
-
-    winery: null,
   }
 
   //INITIAL SETUP
