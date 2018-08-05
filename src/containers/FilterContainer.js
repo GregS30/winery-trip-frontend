@@ -5,8 +5,23 @@ import WinerySearch from '../components/WinerySearch.js';
 import GrapeFilter from '../components/GrapeFilter.js';
 import RegionFilter from '../components/RegionFilter.js';
 
+//ADAPTERS
+import AdapterWine from './../adapters/AdapterWine'
 
 class FilterContainer extends Component {
+
+  state = {
+    grapes: [],
+    regions: [],
+  }
+
+  componentDidMount() {
+    AdapterWine.fetchFilters()
+    .then(filters => this.setState({
+      grapes: filters.grapes,
+      regions: filters.regions,
+    }))
+  }
 
   render() {
     return (
@@ -18,12 +33,12 @@ class FilterContainer extends Component {
         <div className="filter-container">
           <WinerySearch nameSearch={this.props.nameSearch} handleNameSearch={this.props.handleNameSearch}/>
           <RegionFilter
-            renderRegions={this.props.renderRegions}
+            regions={this.state.regions}
             handleRegionSelect={this.props.handleRegionSelect}
             selectedRegion={this.props.selectedRegion}
           />
           <GrapeFilter
-            renderGrapes={this.props.renderGrapes}
+            grapes={this.state.grapes}
             handleGrapeSelect={this.props.handleGrapeSelect}
             selectedGrape={this.props.selectedGrape}
           />

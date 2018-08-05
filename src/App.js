@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //CSS
@@ -17,7 +17,7 @@ import Footer from './components/Footer.js';
 import TripContainer from './containers/TripContainer.js';
 
 // ACTIONS
-import { login, logout, myWineries } from './actions';
+import { login, logout, storeMyWineries } from './actions';
 
 // redux props
 const mapStateToProps = state => {
@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => {
   return {
     login: (username, userId) => dispatch(login(username, userId)),
     logout: () => dispatch(logout()),
-    myWineries: () => dispatch(myWineries(myWineries))
+    storeMyWineries: (myWineries) => dispatch(storeMyWineries(myWineries))
   }
 }
 
@@ -57,7 +57,7 @@ class App extends Component {
 
   getMyWineries = () => {
     AdapterWine.fetchWineriesForUser(this.props.userId)
-    .then(this.props.myWineries)
+    .then(this.props.storeMyWineries)
     .catch(err => {
         // console.warn(err);
       AdapterUser.deleteToken();
@@ -72,7 +72,7 @@ class App extends Component {
 
   saveWinery = (winery) => {
     AdapterWine.postWinery(winery, this.props.userId)
-    .then(this.props.myWineries)
+    .then(this.props.storeMyWineries)
   }
 
   render() {

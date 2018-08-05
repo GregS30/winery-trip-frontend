@@ -1,7 +1,7 @@
-import {LOGIN, LOGOUT, MY_WINERIES, ALL_WINERIES, NAME_SEARCH, SELECTED_REGION, SELECTED_GRAPE, WINERY_DETAILS, WINERY_WINES, SELECTED_WINERY
+import {LOGIN, LOGOUT, STORE_WINERIES, STORE_MY_WINERIES, STORE_NAME_SEARCH, STORE_SELECTED_REGION, STORE_SELECTED_GRAPE, STORE_WINERY_DETAILS, STORE_WINERY_WINES, STORE_SELECTED_WINERY
 } from './types';
 
-export function login(username, userId, loggedIn) {
+export function login(username, userId) {
   return {
     type: LOGIN,
     payload: {
@@ -18,63 +18,63 @@ export function logout() {
    }
 }
 
-export function myWineries(myWineries) {
+export function storeMyWineries(myWineries) {
   return {
-    type: MY_WINERIES,
+    type: STORE_MY_WINERIES,
     payload: {
       myWineries: myWineries,
     }
   }
 }
 
-export function allWineries(allWineries) {
+export function storeWineries(wineries) {
   return {
-    type: ALL_WINERIES,
+    type: STORE_WINERIES,
     payload: {
-      wineries: allWineries,
+      wineries: wineries,
     }
   }
 }
 
-export function nameSearch(nameSearch) {
+export function storeNameSearch(nameSearch) {
   return {
-    type: NAME_SEARCH,
+    type: STORE_NAME_SEARCH,
     payload: {
       nameSearch: nameSearch,
     }
   }
 }
 
-export function selectedRegion(selectedRegion) {
+export function storeSelectedRegion(selectedRegion) {
   return {
-    type: SELECTED_REGION,
+    type: STORE_SELECTED_REGION,
     payload: {
       selectedRegion: selectedRegion,
     }
   }
 }
 
-export function selectedGrape(selectedGrape) {
+export function storeSelectedGrape(selectedGrape) {
   return {
-    type: SELECTED_GRAPE,
+    type: STORE_SELECTED_GRAPE,
     payload: {
       selectedGrape: selectedGrape,
     }
   }
 }
 
-export function selectedWinery(selectedWinery) {
+export function storeSelectedWinery(selectedWinery) {
   return {
-    type: SELECTED_WINERY,
+    type: STORE_SELECTED_WINERY,
     payload: {
       selectedWinery: selectedWinery,
     }
   }
 }
 
-export function wineryDetails(wineryDetails) {
+export function storeWineryDetails(wineryDetails) {
   return {
-    type: WINERY_DETAILS,
+    type: STORE_WINERY_DETAILS,
     payload: {
       wineryDetails: wineryDetails,
     }

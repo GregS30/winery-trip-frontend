@@ -5,13 +5,15 @@ const GrapeFilter = (props) => {
   return (
     <div className="grape-filter">
       <label htmlFor="grape-filter">Varietal: </label>
-      <select 
+      <select
         name="grape-filter"
         value={props.selectedGrape}
         onChange={props.handleGrapeSelect}
-      >
-        {props.renderGrapes()}
-      </select>
+        >
+        {props.grapes.map(grape =>
+            <option key={grape.id}>{grape.name}</option>
+        )}
+        </select>
     </div>
   )
 

@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // ADAPTERS
-import { API } from '../adapters/AdapterWine';
 import AdapterUser from './../adapters/AdapterUser';
 
 // ACTIONS
 import { login } from '../actions';
 
-// redux props
 const mapDispatchToProps = dispatch => {
   return {
-    login: (username, userId) => dispatch(login(username, userId))   
+    login: (username, userId) => dispatch(login(username, userId))
   }
 }
 
+// redux props
 class Login extends Component {
   // keeping local state
   state = {
@@ -66,5 +65,6 @@ class Login extends Component {
     )
   }
 }
+
 
 export default connect(null, mapDispatchToProps)(Login);

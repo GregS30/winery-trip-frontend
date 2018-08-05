@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
 //ADAPTERS
 import AdapterWine from './../adapters/AdapterWine'
 
@@ -10,18 +9,18 @@ import WineryList from '../components/WineryList.js';
 import WineryDetailsContainer from './WineryDetailsContainer';
 import FilterContainer from './FilterContainer';
 
-
 // ACTIONS
-import { allWineries, wineryDetails, selectedGrape, selectedRegion, nameSearch, selectedWinery } from '../actions';
+import { storeWineries, storeWineryDetails, storeSelectedGrape, storeSelectedRegion, storeNameSearch, storeSelectedWinery } from '../actions';
 
 // redux props
 const mapStateToProps = state => {
+  console.log("mapStateToProps")
   return {
     username: state.username,
     userId: state.userId,
     loggedIn: state.loggedIn,
-    myWineries: state.myWineries,
     wineries: state.wineries,
+    myWineries: state.myWineries,
     nameSearch: state.nameSearch,
     wineryDetails: state.wineryDetails,
     selectedGrape: state.selectedGrape,
@@ -32,12 +31,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    allWineries: (allWineries) => dispatch(allWineries(allWineries)),
-    nameSearch: (nameSearch) => dispatch(nameSearch(nameSearch)),
-    selectedGrape: (selectedGrape) => dispatch(selectedGrape(selectedGrape)),
-    selectedRegion: (selectedRegion) => dispatch(selectedRegion(selectedRegion)),
-    wineryDetails: (wineryDetails) => dispatch(wineryDetails(wineryDetails)),
-    selectedWinery: (selectedWinery) => dispatch(selectedWinery(selectedWinery)),
+    storeWineries: (wineries) => dispatch(storeWineries(wineries)),
+    storeNameSearch: (nameSearch) => dispatch(storeNameSearch(nameSearch)),
+    storeSelectedGrape: (selectedGrape) => dispatch(storeSelectedGrape(selectedGrape)),
+    storeSelectedRegion: (selectedRegion) => dispatch(storeSelectedRegion(selectedRegion)),
+    storeWineryDetails: (wineryDetails) => dispatch(storeWineryDetails(wineryDetails)),
+    storeSelectedWinery: (selectedWinery) => dispatch(storeSelectedWinery(selectedWinery)),
   }
 }
 
@@ -50,73 +49,43 @@ class WineryContainer extends Component {
   //INITIAL SETUP
   componentDidMount() {
     this.getWineries();
-    this.getRegions();
-    this.getGrapes();
   }
+
   //Data for initial setup
   getWineries = () => {
     AdapterWine.fetchWineries(this.props.selectedRegion, this.props.selectedGrape)
-    .then(resp => resp.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
-    .then(this.props.allWineries)
-  }
-
-  getRegions = () => {
-    AdapterWine.fetchRegions()
-    .then(resp => resp.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
-    .then(regions => this.setState({
-      regions,
-    }))
-  }
-
-  getGrapes = () => {
-    AdapterWine.fetchGrapes()
-    .then(resp => resp.sort((w1, w2) => {return w1.name.localeCompare(w2.name)}))
-    .then(grapes => this.setState({
-      grapes,
-    }))
-  }
-
-  //AC.Note: This is interesting. I'd move this function to FilterContainer and pass state regions to it instead.
-  renderRegions = () => {
-    return this.state.regions.map(region => {
-      return (
-        <option key={region.id}>{region.name}</option>
-      )
-    })
-  }
-
-  renderGrapes = () => {
-    return this.state.grapes.map(grape => {
-      return (
-        <option key={grape.id}>{grape.name}</option>
-      )
-    })
+    .then((resp) =>
+      this.props.storeWineries(resp)
+    );
   }
 
   //PROPS FUNCTIONALITY: NavBar handlers
   handleNameSearch = (event) => {
-    this.props.nameSearch(event.target.value)
+    this.props.storeNameSearch(event.target.value)
   }
 
   handleGrapeSelect = (event) => {
-    this.props.selectedGrape(event.target.value)
+    this.props.storeSelectedGrape(event.target.value);
+    this.getWineries();
   }
 
   handleRegionSelect = (event) => {
-    this.props.selectedRegion(event.target.value)
+    this.props.storeSelectedRegion(event.target.value);
+    console.log("region select")
+    this.getWineries();
   }
 
   //PROPS FUNCTIONALITY: WineryList handlers
   handleClick = (e, selectedWinery) => {
     AdapterWine.fetchWineryDetails(selectedWinery.name)
     .then(json => {
-      if (json["message"]) {
-        this.props.wineryDetails(null)
-        this.props.selectedWinery(selectedWinery)
+      if (json["message"] === "No Data") {
+        this.props.storeWineryDetails(null)
+        this.props.storeSelectedWinery(selectedWinery)
       }
       else {
-        this.props.wineryDetails(json)
-        this.props.selectedWinery(selectedWinery)
+        this.props.storeWineryDetails(json)
+        this.props.storeSelectedWinery(selectedWinery)
       }
     })
   }
@@ -139,14 +108,12 @@ class WineryContainer extends Component {
         <div className="filter">
           <FilterContainer
             username={this.props.username}
-            renderRegions={this.renderRegions}
-            renderGrapes={this.renderGrapes}
             handleNameSearch={this.handleNameSearch}
-            nameSearch={this.state.nameSearch}
+            nameSearch={this.props.nameSearch}
             handleGrapeSelect={this.handleGrapeSelect}
             handleRegionSelect={this.handleRegionSelect}
-            selectedGrape={this.state.selectedGrape}
-            selectedRegion={this.state.selectedRegion}
+            selectedGrape={this.props.selectedGrape}
+            selectedRegion={this.props.selectedRegion}
           />
         </div>
         <div className="list-and-details">
@@ -155,8 +122,8 @@ class WineryContainer extends Component {
             handleClick={this.handleClick}
           />
           <WineryDetailsContainer
-            displayedWinery={this.state.displayedWinery}
-            winery={this.state.winery}
+            displayedWinery={this.props.displayedWinery}
+            winery={this.props.winery}
             myWineries={this.props.myWineries}
             userId={this.props.userId}
             saveWinery={this.props.saveWinery}

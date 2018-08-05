@@ -5,15 +5,9 @@ export const API = 'http://localhost:3000/api/v1';
 
 class AdapterWine {
 
-  static fetchRegions() {
-    // fetch regions list for filter
-      return fetch(`${API}/regions`)
-           .then(r => r.json())
-  }
-
-  static fetchGrapes() {
-    // fetch grapes list for varietal filter
-      return fetch(`${API}/grapes`)
+  static fetchFilters() {
+    // fetch grapes and regions for varietal and regions filters
+      return fetch(`${API}/grapes_regions`)
            .then(r => r.json())
   }
 
