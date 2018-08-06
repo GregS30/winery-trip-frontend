@@ -1,30 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class WineryList extends Component {
-
-  renderWineries = () => {
-    return this.props.wineries.map(winery => {
-      return (
-        <p
-          key={winery.id}
-          onClick={(e) => this.props.handleClick(e, winery)}
-        >{winery.name}</p>
-      )
-    })
-  }
-
-  render() {
-    return (
+const WineryList = (props) => {
+  return (
+    <div>
       <div>
-        <div>
-          <h3 className="winery-header">Wineries</h3>
-        </div>
-        <div className="winery-list">
-        {this.renderWineries()}
-        </div>
+        <h3 className="winery-header">Wineries</h3>
       </div>
-    )
-  }
+      <div className="winery-list">
+        {props.wineries.map(winery => {
+          return (
+            <p
+              key={winery.id}
+              onClick={(e) => props.handleClick(e, winery)}
+            >{winery.name}</p>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 export default WineryList;

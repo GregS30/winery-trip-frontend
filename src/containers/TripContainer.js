@@ -1,37 +1,11 @@
 import React, { Component } from 'react';
-
-//ADAPTERS
-import AdapterWine from './../adapters/AdapterWine'
+import { connect } from 'react-redux';
 
 //COMPONENTS
 import WineryList from '../components/WineryList.js';
 import WineryDetailsContainer from './WineryDetailsContainer';
 
-
 class TripContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      displayedWinery: null,
-      winery: null,
-    }
-  }
-
-  //PROPS FUNCTIONALITY: WineryList handlers
-  handleClick = (e, selectedWinery) => {
-    AdapterWine.fetchWineryDetails(selectedWinery.name)
-    .then(json => {
-      json["message"]
-        ? this.setState(
-          {displayedWinery: null,
-          winery: selectedWinery,
-        })
-        : this.setState(
-        {displayedWinery: json,
-          winery: selectedWinery,
-        });
-    })
-  }
 
   render() {
     return (
@@ -40,20 +14,24 @@ class TripContainer extends Component {
         <div className="list-and-details">
           <WineryList
             wineries={this.props.myWineries}
-            handleClick={this.handleClick}
+            handleClick={this.props.handleWineryClick}
           />
           <WineryDetailsContainer
-            saveWinery={this.props.saveWinery}
-            displayedWinery={this.state.displayedWinery}
-            winery={this.state.winery}
             myWineries={this.props.myWineries}
-
+            userId={this.props.userId}
+            saveWinery={this.props.saveWinery}
           />
-
         </div>
-
       </div>
   )}
 }
 
-export default TripContainer;
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    userId: state.userId,
+    myWineries: state.myWineries,
+  }
+}
+
+export default connect(mapStateToProps)(TripContainer);

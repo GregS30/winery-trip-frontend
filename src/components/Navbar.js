@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 //COMPONENTS
 import Login from './Login.js'
@@ -22,7 +22,6 @@ const Navbar = (props) => {
       }
     </div>
   )
-
 }
 
 export default Navbar;

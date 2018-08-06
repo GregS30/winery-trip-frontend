@@ -40,7 +40,7 @@ class WineryDetailsContainer extends Component {
       : null
     :null
 
-  renderSchedule = () => this.props.wineryDetails && this.props.wineryDetails["opening_hours"] && this.props.wineryDetails["opening_hours"]
+  renderSchedule = () => this.props.wineryDetails &&  this.props.wineryDetails["opening_hours"]
   ? this.props.wineryDetails["opening_hours"]["weekday_text"]
       ? <Fragment>
           <h3> Schedule </h3>
@@ -114,10 +114,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(WineryDetailsContainer);
+export default connect(mapStateToProps)(WineryDetailsContainer);

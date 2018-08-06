@@ -1,6 +1,6 @@
 import AdapterWine from './adapters/AdapterWine'
 
-import {LOGIN, LOGOUT, STORE_MY_WINERIES, STORE_NAME_SEARCH, STORE_SELECTED_REGION, STORE_SELECTED_GRAPE, STORE_WINERY_DETAILS, STORE_WINERY_WINES, STORE_SELECTED_WINERY, REQUEST_WINERIES, RECEIVE_WINERIES
+import {LOGIN, LOGOUT, STORE_MY_WINERIES, STORE_NAME_SEARCH, STORE_SELECTED_REGION, STORE_SELECTED_GRAPE, STORE_WINERY_DETAILS, STORE_WINERY_WINES, REQUEST_WINERIES, RECEIVE_WINERIES
 } from './types';
 
 export function login(username, userId) {
@@ -21,6 +21,7 @@ export function logout() {
 }
 
 export function storeMyWineries(myWineries) {
+  console.log("storeMyWineries", myWineries)
   return {
     type: STORE_MY_WINERIES,
     payload: {
@@ -58,20 +59,12 @@ export function storeSelectedGrape(grape) {
   }
 }
 
-export function storeSelectedWinery(winery) {
-  return {
-    type: STORE_SELECTED_WINERY,
-    payload: {
-      winery: winery,
-    }
-  }
-}
-
-export function storeWineryDetails(wineryDetails) {
+export function storeWineryDetails(details, winery) {
   return {
     type: STORE_WINERY_DETAILS,
     payload: {
-      wineryDetails: wineryDetails,
+      details: details,
+      winery: winery,
     }
   }
 }

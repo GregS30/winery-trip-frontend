@@ -1,5 +1,4 @@
-import {LOGIN, LOGOUT, STORE_MY_WINERIES, STORE_NAME_SEARCH, STORE_SELECTED_REGION, STORE_SELECTED_GRAPE, STORE_WINERY_DETAILS, STORE_WINERY_WINES, STORE_SELECTED_WINERY,
-  REQUEST_WINERIES, RECEIVE_WINERIES
+import {LOGIN, LOGOUT, STORE_MY_WINERIES, STORE_NAME_SEARCH, STORE_SELECTED_REGION, STORE_SELECTED_GRAPE, STORE_WINERY_DETAILS, STORE_WINERY_WINES, REQUEST_WINERIES, RECEIVE_WINERIES
 } from './types';
 
 //default State
@@ -58,13 +57,11 @@ export default function reducer(state = initialState, action) {
       return { ...state,
         selectedGrape: action.payload.grape,
       }
-    case STORE_SELECTED_WINERY:
-      return { ...state,
-        selectedWinery: action.payload.winery,
-      }
+
     case STORE_WINERY_DETAILS:
       return { ...state,
-        wineryDetails: action.payload.wineryDetails,
+        wineryDetails: action.payload.details,
+        selectedWinery: action.payload.winery,
       }
     case STORE_WINERY_WINES:
       return state;

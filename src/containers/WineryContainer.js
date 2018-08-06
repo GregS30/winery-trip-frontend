@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-//ADAPTERS
-import AdapterWine from './../adapters/AdapterWine'
-
 //COMPONENTS
 import WineryList from '../components/WineryList.js';
 import WineryDetailsContainer from './WineryDetailsContainer';
 import FilterContainer from './FilterContainer';
 
 // ACTIONS
-import { storeWineryDetails, storeSelectedWinery, requestWineries, receiveWineries, getWineries } from '../actions';
+import { getWineries } from '../actions';
 
 class WineryContainer extends Component {
 
@@ -24,35 +21,14 @@ class WineryContainer extends Component {
     }
   }
 
-  //PROPS FUNCTIONALITY: WineryList handlers
-  handleClick = (e, selectedWinery) => {
-    AdapterWine.fetchWineryDetails(selectedWinery.name)
-    .then(json => {
-      if (json["message"] === "No Data") {
-        this.props.storeWineryDetails(null)
-        this.props.storeSelectedWinery(selectedWinery)
-      }
-      else {
-        this.props.storeWineryDetails(json)
-        this.props.storeSelectedWinery(selectedWinery)
-      }
-    })
-  }
-
-  filterWineriesByName = () => {
-    if (this.props.wineries) {
-      const filteredWineries = this.props.wineries.filter(winery => {
-        return winery.name.toLowerCase().includes(this.props.nameSearch.toLowerCase())
-      })
-      return filteredWineries
-    }
-    else {
-      return null
-    }
-  }
+  filterWineriesByName = () =>
+    this.props.wineries.filter(winery =>
+      winery.name.toLowerCase()
+      .includes(this.props.nameSearch.toLowerCase())
+    )
 
   render() {
-    console.log("render wineryContainer props", this.props)
+//    console.log("render wineryContainer props", this.props)
     return (
       <div className="container">
         <div className="filter">
@@ -62,14 +38,13 @@ class WineryContainer extends Component {
         <div className="list-and-details">
           <WineryList
             wineries={this.filterWineriesByName()}
-            handleClick={this.handleClick}
+            handleClick={this.props.handleWineryClick}
           />
           <WineryDetailsContainer
             myWineries={this.props.myWineries}
             userId={this.props.userId}
             saveWinery={this.props.saveWinery}
           />
-
         </div>
       </div>
     )
@@ -93,10 +68,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    storeWineryDetails: (wineryDetails) => dispatch(storeWineryDetails(wineryDetails)),
-    storeSelectedWinery: (selectedWinery) => dispatch(storeSelectedWinery(selectedWinery)),
-    requestWineries: () => dispatch(requestWineries()),
-    receiveWineries: (wineries) => dispatch(receiveWineries(wineries)),
     getWineries: (region, grape) => dispatch(getWineries(region, grape)),
   }
 }

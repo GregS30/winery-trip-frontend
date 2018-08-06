@@ -17,7 +17,7 @@ import Footer from './components/Footer.js';
 import TripContainer from './containers/TripContainer.js';
 
 // ACTIONS
-import { login, logout, storeMyWineries } from './actions';
+import { login, logout, storeMyWineries, storeWineryDetails } from './actions';
 
 class App extends Component {
 
@@ -57,8 +57,21 @@ class App extends Component {
     .then(this.props.storeMyWineries)
   }
 
+  handleWineryClick = (e, selectedWinery) => {
+    AdapterWine.fetchWineryDetails(selectedWinery.name)
+    .then(json => {
+      if (json["message"] === "No Data") {
+        this.props.storeWineryDetails(null, selectedWinery)
+      }
+      else {
+        this.props.storeWineryDetails(json, selectedWinery)
+      }
+    })
+  }
+
   render() {
-//    console.log(this.props.myWineries)
+   console.log("App render", this.props)
+   debugger;
     return (
       <div className="App">
           <Fragment>
@@ -75,19 +88,16 @@ class App extends Component {
               exact path="/"
               render={() =>
                 <WineryContainer
-                  username={this.props.username}
-                  myWineries={this.props.myWineries}
-                  userId={this.props.userId}
                   saveWinery={this.saveWinery}
+                  handleWineryClick={this.handleWineryClick}
                 />}
             />
             <Route
               exact path="/mywineries"
               render={() =>
                 <TripContainer
-                  myWineries={this.props.myWineries}
-                  username={this.props.username}
                   saveWinery={this.saveWinery}
+                  handleWineryClick={this.handleWineryClick}
                 />}
             />
           </Fragment>
@@ -111,8 +121,10 @@ const mapDispatchToProps = dispatch => {
   return {
     login: (username, userId) => dispatch(login(username, userId)),
     logout: () => dispatch(logout()),
-    storeMyWineries: (myWineries) => dispatch(storeMyWineries(myWineries))
+    storeMyWineries: (myWineries) => dispatch(storeMyWineries(myWineries)),
+    storeWineryDetails: (details, winery) => dispatch(storeWineryDetails(details, winery)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+// see github withRouter not working if inside redux connect #5256
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
