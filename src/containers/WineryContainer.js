@@ -20,7 +20,7 @@ class WineryContainer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.selectedRegion !== prevProps.selectedRegion || this.props.selectedGrape !== prevProps.selectedGrape ) {
-      this.props.getWineries(this.props.selectedRegion, this.props.selectedGrape)      
+      this.props.getWineries(this.props.selectedRegion, this.props.selectedGrape)
     }
   }
 
@@ -65,8 +65,6 @@ class WineryContainer extends Component {
             handleClick={this.handleClick}
           />
           <WineryDetailsContainer
-            displayedWinery={this.props.displayedWinery}
-            winery={this.props.winery}
             myWineries={this.props.myWineries}
             userId={this.props.userId}
             saveWinery={this.props.saveWinery}
@@ -87,7 +85,6 @@ const mapStateToProps = state => {
     wineries: state.wineries,
     myWineries: state.myWineries,
     nameSearch: state.nameSearch,
-    wineryDetails: state.wineryDetails,
     selectedGrape: state.selectedGrape,
     selectedRegion: state.selectedRegion,
     selectedWinery: state.selectedWinery,

@@ -23,7 +23,7 @@ const initialState = {
   selectedWinery: null,     // also TripContainer
 
   // WinesList
-  wines: null,
+  wines: [],
 
   // thunkMiddleware
   isFetching: false,
@@ -60,7 +60,7 @@ export default function reducer(state = initialState, action) {
       }
     case STORE_SELECTED_WINERY:
       return { ...state,
-        selectedWinery: action.payload.selectedWinery,
+        selectedWinery: action.payload.winery,
       }
     case STORE_WINERY_DETAILS:
       return { ...state,

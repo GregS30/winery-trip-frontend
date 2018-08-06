@@ -58,11 +58,11 @@ export function storeSelectedGrape(grape) {
   }
 }
 
-export function storeSelectedWinery(selectedWinery) {
+export function storeSelectedWinery(winery) {
   return {
     type: STORE_SELECTED_WINERY,
     payload: {
-      selectedWinery: selectedWinery,
+      winery: winery,
     }
   }
 }
@@ -98,8 +98,8 @@ export function receiveWineries(json) {
 }
 
 export function getWineries(region, grape) {
-  console.log(region, grape)
   return (dispatch) => {
+    dispatch(requestWineries());
     AdapterWine.fetchWineries(region, grape)
     .then(json => dispatch(receiveWineries(json)))
   }
