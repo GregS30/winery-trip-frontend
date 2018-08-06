@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 //COMPONENTS
 import WinerySearch from '../components/WinerySearch.js';
@@ -7,6 +8,8 @@ import RegionFilter from '../components/RegionFilter.js';
 
 //ADAPTERS
 import AdapterWine from './../adapters/AdapterWine'
+
+import { storeSelectedGrape, storeSelectedRegion, storeNameSearch } from '../actions';
 
 class FilterContainer extends Component {
 
@@ -23,6 +26,18 @@ class FilterContainer extends Component {
     }))
   }
 
+  handleNameSearch = (event) => {
+    this.props.storeNameSearch(event.target.value)
+  }
+
+  handleGrapeSelect = (event) => {
+    this.props.storeSelectedGrape(event.target.value);
+  }
+
+  handleRegionSelect = (event) => {
+    this.props.storeSelectedRegion(event.target.value);
+  }
+
   render() {
     return (
       <Fragment>
@@ -31,15 +46,16 @@ class FilterContainer extends Component {
           : <h3>Find your winery</h3>
         }
         <div className="filter-container">
-          <WinerySearch nameSearch={this.props.nameSearch} handleNameSearch={this.props.handleNameSearch}/>
+          <WinerySearch nameSearch={this.props.nameSearch} handleNameSearch={this.handleNameSearch}
+          />
           <RegionFilter
             regions={this.state.regions}
-            handleRegionSelect={this.props.handleRegionSelect}
+            handleRegionSelect={this.handleRegionSelect}
             selectedRegion={this.props.selectedRegion}
           />
           <GrapeFilter
             grapes={this.state.grapes}
-            handleGrapeSelect={this.props.handleGrapeSelect}
+            handleGrapeSelect={this.handleGrapeSelect}
             selectedGrape={this.props.selectedGrape}
           />
         </div>
@@ -48,4 +64,24 @@ class FilterContainer extends Component {
   }
 }
 
-export default FilterContainer;
+// redux props
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    selectedGrape: state.selectedGrape,
+    selectedRegion: state.selectedRegion,
+    nameSearch: state.nameSearch,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    storeNameSearch: (nameSearch) => dispatch(storeNameSearch(nameSearch)),
+    storeSelectedGrape: (selectedGrape) => dispatch(storeSelectedGrape(selectedGrape)),
+    storeSelectedRegion: (selectedRegion) => dispatch(storeSelectedRegion(selectedRegion)),
+  }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterContainer);

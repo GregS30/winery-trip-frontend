@@ -1,12 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-// redux props
-const mapStateToProps = state => {
-  return {
-    wineries: state.wineries,
-  }
-}
 
 class WineryList extends Component {
 
@@ -35,4 +27,4 @@ class WineryList extends Component {
   }
 }
 
-export default connect(mapStateToProps, null)(WineryList);
+export default WineryList;

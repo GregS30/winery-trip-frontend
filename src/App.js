@@ -19,24 +19,6 @@ import TripContainer from './containers/TripContainer.js';
 // ACTIONS
 import { login, logout, storeMyWineries } from './actions';
 
-// redux props
-const mapStateToProps = state => {
-  return {
-    username: state.username,
-    userId: state.userId,
-    loggedIn: state.loggedIn,
-    myWineries: state.myWineries,
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    login: (username, userId) => dispatch(login(username, userId)),
-    logout: () => dispatch(logout()),
-    storeMyWineries: (myWineries) => dispatch(storeMyWineries(myWineries))
-  }
-}
-
 class App extends Component {
 
   // AUTO-LOGIN functionality -if token is present in LocalStorage
@@ -112,6 +94,24 @@ class App extends Component {
         <Footer />
       </div>
     );
+  }
+}
+
+// redux props
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    userId: state.userId,
+    loggedIn: state.loggedIn,
+    myWineries: state.myWineries,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (username, userId) => dispatch(login(username, userId)),
+    logout: () => dispatch(logout()),
+    storeMyWineries: (myWineries) => dispatch(storeMyWineries(myWineries))
   }
 }
 
