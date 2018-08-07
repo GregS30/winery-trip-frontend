@@ -71,7 +71,6 @@ class App extends Component {
 
   render() {
    console.log("App render", this.props)
-   debugger;
     return (
       <div className="App">
           <Fragment>
@@ -126,5 +125,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-// see github withRouter not working if inside redux connect #5256
+// see github "withRouter not working if inside redux connect #5256"
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

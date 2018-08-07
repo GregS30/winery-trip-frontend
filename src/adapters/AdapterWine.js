@@ -30,7 +30,8 @@ class AdapterWine {
   }
 
   static fetchWineriesForUser(id) {
-    return fetch(`${API}/users/${id}/wineries`, {
+   return fetch(`${API}/users/${id}/wineries`, {
+//   return fetch(`${API}/trips/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
